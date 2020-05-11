@@ -1,12 +1,17 @@
 import React from 'react';
-import Header from './components/layouts/header';
-import Table from './components/layouts/table';
+
+import Main from './pages/Main';
+import Edit from './pages/Edit';
+
+import { BrowserRouter as Router, Route } from 'react-router-dom';
 
 const App: React.FC = () => {
   return (
     <React.Fragment>
-      <Header />
-      <Table />
+      <Router>
+        <Route exact path='/' component={Main} />
+        <Route path='/edit' component={Edit} />
+      </Router>
     </React.Fragment>
   )
 }
