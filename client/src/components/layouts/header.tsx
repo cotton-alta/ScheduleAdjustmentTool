@@ -1,4 +1,5 @@
 import React from 'react';
+import '../../assets/style/header.css';
 
 const App: React.FC = () => {
   const table_tab = [
@@ -9,9 +10,9 @@ const App: React.FC = () => {
   ]
 
   return (
-    <React.Fragment>
-      { table_tab.map( tab => <div>{ tab }</div>) }
-    </React.Fragment>
+    <div className="header-wrapper">
+      {/* { table_tab.map( tab => <div>{ tab }</div>) } */}
+    </div>
   )
 }
 

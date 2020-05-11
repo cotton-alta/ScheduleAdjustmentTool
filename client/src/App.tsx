@@ -1,14 +1,13 @@
 import React from 'react';
 import Header from './components/layouts/header';
+import Table from './components/layouts/table';
 
 const App: React.FC = () => {
   return (
-    <div>
+    <React.Fragment>
       <Header />
-    </div>
-    // <React.Fragment>
-    //   <Header />
-    // </React.Fragment>
+      <Table />
+    </React.Fragment>
   )
 }
 
