@@ -1,4 +1,6 @@
 version: '3.3'
+volumes:
+  mongo: {}
 services:
   client:
     build:
@@ -17,14 +19,14 @@ services:
       - /client/node_modules
     ports:
       - 3000:3000
-  # mongo:
-  #   image: mongo
-  #   restart: always
-  #   environment:
-  #     MONGO_INITDB_ROOT_USERNAME: root
-  #     MONGO_INITDB_ROOT_PASSWORD: example
-  #   ports:
-  #     - 27017:27017
-  #   volumes:
-  #     - ./db:/data/db
-  #     - ./configdb:/data/configdb
+  mongo:
+    image: mongo
+    restart: always
+    environment:
+      MONGO_INITDB_ROOT_USERNAME: ${MONGO_USERNAME}
+      MONGO_INITDB_ROOT_PASSWORD: ${MONGO_PASSWORD}
+    ports:
+      - '27017:27017'
+    volumes:
+      - './mongo/db:/mongo/data/db'
+      - './mongo/configdb:/mongo/data/configdb'

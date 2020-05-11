@@ -39,22 +39,25 @@ const App: React.FC = () => {
       <div>
         <span>{ data.title }</span>
       </div>
-      <div>
+      <div className="table-line">
+        <div className="table-cell"></div>
         {
           data.dates.map( date => {
             return (
-              <React.Fragment>{ date }</React.Fragment>
+              <div className="table-cell">{ date }</div>
               )
-            } )
+          })
         }
       </div>
       { 
         data.participant.map( man => {
           const stringMan: StringObjectKey = man;
           return (
-            <div>
-              { stringMan.name }
-              { data.dates.map( date => <React.Fragment>{ stringMan[date] }</React.Fragment>) }
+            <div className="table-line">
+              <div className="table-cell">{ stringMan.name }</div>
+              { data.dates.map( date => 
+                <div className="table-cell">{ stringMan[date] }</div>
+              )}
             </div>
           )
         }) 
