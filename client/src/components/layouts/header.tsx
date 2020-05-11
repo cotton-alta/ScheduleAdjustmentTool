@@ -1,17 +1,12 @@
 import React from 'react';
-import '../../assets/style/header.css';
+import '../../assets/style/header.scss';
 
 const App: React.FC = () => {
-  const table_tab = [
-    "title",
-    "date",
-    "detail",
-    "contributor"
-  ]
 
   return (
     <div className="header-wrapper">
-      {/* { table_tab.map( tab => <div>{ tab }</div>) } */}
+      <div className="header-tab">新規作成</div>
+      <div className="header-tab">過去の予定</div>
     </div>
   )
 }

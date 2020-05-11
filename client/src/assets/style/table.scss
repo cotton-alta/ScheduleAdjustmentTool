@@ -9,17 +9,9 @@
   flex-direction: row;
   justify-content: center;
   margin: 0 auto;
-}
-
-.table-line:last-child {
-  border-bottom: 1px solid #000000;
-}
-
-.table-cell {
-  width: 100px;
-  text-align: center;
-  border-left: 1px solid #000000;
-  border-top: 1px solid #000000;
+  &:last-child {
+    border-bottom: 1px solid #000000;
+  }
 }
 
 .table-cell+ .table-cell {
@@ -27,6 +19,12 @@
   border-left: 1px solid #000000;
 }
 
-.table-cell:last-child {
-  border-right: 1px solid #000000;
+.table-cell {
+  width: 100px;
+  text-align: center;
+  border-left: 1px solid #000000;
+  border-top: 1px solid #000000;
+  &:last-child {
+    border-right: 1px solid #000000;
+  }
 }

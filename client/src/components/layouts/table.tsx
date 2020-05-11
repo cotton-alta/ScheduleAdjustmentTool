@@ -1,5 +1,5 @@
 import React from 'react';
-import '../../assets/style/table.css';
+import '../../assets/style/table.scss';
 
 const App: React.FC = () => {
   interface StringObjectKey {
