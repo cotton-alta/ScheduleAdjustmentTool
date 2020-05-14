@@ -16,6 +16,7 @@ services:
     command: bash -c "yarn install && yarn start -L"
     volumes:
       - ./client:/client
+      # 初回プロジェクトの作成後にコメントアウトを外す
       - /client/node_modules
     ports:
       - 3000:3000
@@ -30,3 +31,20 @@ services:
     volumes:
       - './mongo/db:/mongo/data/db'
       - './mongo/configdb:/mongo/data/configdb'
+  server:
+    build:
+      context: ./
+      dockerfile: Dockerfile_server
+    image: express-dev:1.0
+    container_name: schedule.server
+    working_dir: /server
+    environment:
+      HOST: '0.0.0.0'
+      NODE_ENV: development
+    command: bash -c "yarn install && yarn run ts-node index.ts"
+    volumes:
+      - ./server:/server
+      # 初回プロジェクトの作成後にコメントアウトを外す
+      # - /server/node_modules
+    ports:
+      - 3333:3333

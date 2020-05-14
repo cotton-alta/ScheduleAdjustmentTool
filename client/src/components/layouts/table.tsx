@@ -44,7 +44,7 @@ const App: React.FC = () => {
         {
           data.dates.map( date => {
             return (
-              <div className="table-cell">{ date }</div>
+              <div key={ date } className="table-cell">{ date }</div>
               )
           })
         }
@@ -53,10 +53,10 @@ const App: React.FC = () => {
         data.participant.map( man => {
           const stringMan: StringObjectKey = man;
           return (
-            <div className="table-line">
+            <div key={ stringMan.date } className="table-line">
               <div className="table-cell">{ stringMan.name }</div>
               { data.dates.map( date => 
-                <div className="table-cell">{ stringMan[date] }</div>
+                <div key={ date } className="table-cell">{ stringMan[date] }</div>
               )}
             </div>
           )

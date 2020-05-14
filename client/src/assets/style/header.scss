@@ -8,6 +8,11 @@
   color: #FFFFFF;
 }
 
-.header-tab {
+.header-tab{
   margin: 0 10px;
+  cursor: pointer;
+  &--medium {
+    color: #FFFFFF;
+    text-decoration: none;
+  }
 }
