@@ -1,0 +1,13 @@
+.calendar-wrapper {
+  width: 90%;
+  max-width: 500px;
+  margin: 0 auto;
+  text-align: center;
+}
+
+span {
+  display: block;
+  height: 50px;
+  line-height: 50px;
+  font-size: calc(15px + 0.5vw);
+}

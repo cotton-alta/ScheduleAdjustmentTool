@@ -1,10 +1,12 @@
-import React from 'react';
+import React, { useState, Fragment } from "react";
+import RangeDataPicker from "../components/ui/calendar";
 
 const App: React.FC = () => {
   return (
-    <React.Fragment>
+    <Fragment>
       <p>edit page</p>
-    </React.Fragment>
+      <RangeDataPicker />
+    </Fragment>
   )
 }
 
