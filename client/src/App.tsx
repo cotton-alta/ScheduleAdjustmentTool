@@ -6,6 +6,9 @@ import Header from './components/layouts/header';
 
 import { BrowserRouter as Router, Route } from 'react-router-dom';
 
+import axios from "axios";
+axios.defaults.baseURL = 'http://localhost:3333';
+
 const App: React.FC = () => {
   return (
     <React.Fragment>

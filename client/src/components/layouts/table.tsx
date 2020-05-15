@@ -53,7 +53,7 @@ const App: React.FC = () => {
         data.participant.map( man => {
           const stringMan: StringObjectKey = man;
           return (
-            <div key={ stringMan.date } className="table-line">
+            <div key={ stringMan.name } className="table-line">
               <div className="table-cell">{ stringMan.name }</div>
               { data.dates.map( date => 
                 <div key={ date } className="table-cell">{ stringMan[date] }</div>

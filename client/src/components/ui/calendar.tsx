@@ -23,7 +23,7 @@ const RangeDataPicker: React.FC = () => {
   return (
     <div className="calendar-wrapper">
       <div>
-        <span>開始日</span>
+        <span className="calendar-title">開始日</span>
         <DatePicker 
           selected={ Moment(startDate).toDate() }
           selectsStart
@@ -33,7 +33,7 @@ const RangeDataPicker: React.FC = () => {
           />
       </div>
       <div>
-        <span>終了日</span>
+        <span className="calendar-title">終了日</span>
         <DatePicker 
           selected={ Moment(endDate).toDate() }
           selectsEnd
