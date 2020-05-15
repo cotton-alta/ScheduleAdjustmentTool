@@ -6,41 +6,40 @@ import Moment from "moment";
 
 import "../../assets/style/calendar.scss";
 
-const RangeDataPicker: React.FC = () => {
-  const initDate = Moment();
-  const [startDate, setStartDate] = useState(initDate);
-  const [endDate, setEndDate] = useState(initDate.add('days', 7));
+type DateType = {
+  startDate: string
+  endDate: string
+  setStartDate: React.Dispatch<React.SetStateAction<string>>
+  setEndDate: React.Dispatch<React.SetStateAction<string>>
+}
 
+const RangeDataPicker: React.FC<DateType> = (props: DateType) => {
   const handleDateStart = (selectedDate: Date) => {
-    setStartDate(Moment(selectedDate));
+    props.setStartDate(Moment(selectedDate).format());
   };
   const handleDateEnd = (selectedDate: Date) => {
-    setEndDate(Moment(selectedDate));
+    props.setEndDate(Moment(selectedDate).format());
   };
-  
-  useEffect(() => {
-    console.log(startDate.format(), endDate.format());
-  }, [startDate, endDate]);
 
   return (
     <div className="calendar-wrapper">
       <div>
         <span className="calendar-title">開始日</span>
         <DatePicker 
-          selected={ Moment(startDate).toDate() }
+          selected={ Moment(props.startDate).toDate() }
           selectsStart
-          startDate={ Moment(startDate).toDate() }
-          endDate={ Moment(endDate).toDate() }
+          startDate={ Moment(props.startDate).toDate() }
+          endDate={ Moment(props.endDate).toDate() }
           onChange={ handleDateStart }
           />
       </div>
       <div>
         <span className="calendar-title">終了日</span>
         <DatePicker 
-          selected={ Moment(endDate).toDate() }
+          selected={ Moment(props.endDate).toDate() }
           selectsEnd
-          startDate={ Moment(startDate).toDate() }
-          endDate={ Moment(endDate).toDate() }
+          startDate={ Moment(props.startDate).toDate() }
+          endDate={ Moment(props.endDate).toDate() }
           onChange={ handleDateEnd }
         />
       </div>

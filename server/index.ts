@@ -20,7 +20,8 @@ const data = {
 
 // GetとPostのルーティング
 const router: express.Router = express.Router()
-router.get('/', (req:express.Request, res:express.Response) => {
+router.post('/', (req:express.Request, res:express.Response) => {
+  console.log(req.body)
   res.send(data)
 })
 app.use(router)
