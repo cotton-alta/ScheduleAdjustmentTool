@@ -1,13 +1,13 @@
-import React from 'react';
+import React from "react";
 
-import Table from '../components/layouts/table';
+import Table from "../components/layouts/table";
 
 const App: React.FC = () => {
   return (
-    <React.Fragment>
+    <div className="main-wrapper">
       <Table />
-    </React.Fragment>
-  )
-}
+    </div>
+  );
+};
 
 export default App;

@@ -1,6 +1,29 @@
-.edit-title {
-  display: block;
-  height: 50px;
-  line-height: 50px;
-  font-size: calc(15px + 0.5vw);
+.edit {
+  &-wrapper {
+    width: 90%;
+    max-width: 800px;
+    margin: 0 auto;
+    input {
+      width: 100%;
+      font-size: calc(15px + 0.2vw);
+      height: 30px;
+      line-height: 30px;
+      border-radius: 3px;
+      border: 1px solid #000000;
+    }
+    textarea {
+      width: 100%;
+      font-size: calc(15px + 0.2vw);
+      height: 70px;
+      line-height: 25px;
+      border: 1px solid #000000;
+      border-radius: 3px;
+    }
+  }
+  &-title {
+    display: block;
+    height: 50px;
+    line-height: 50px;
+    font-size: calc(15px + 0.5vw);
+  }
 }

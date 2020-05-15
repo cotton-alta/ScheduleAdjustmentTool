@@ -1,24 +1,26 @@
-import React, { useState, Fragment } from "react";
+import React, { useState, useEffect, Fragment } from "react";
 
 import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
 import Moment from "moment";
 
-import '../../assets/style/calendar.scss';
+import "../../assets/style/calendar.scss";
 
 const RangeDataPicker: React.FC = () => {
-  const initDate = Moment()
-  const [startDate, setStartDate] = useState(initDate)
-  const [endDate, setEndDate] = useState(initDate.add('days', 7))
+  const initDate = Moment();
+  const [startDate, setStartDate] = useState(initDate);
+  const [endDate, setEndDate] = useState(initDate.add('days', 7));
 
   const handleDateStart = (selectedDate: Date) => {
-    setStartDate(Moment(selectedDate))
-  }
+    setStartDate(Moment(selectedDate));
+  };
   const handleDateEnd = (selectedDate: Date) => {
-    setEndDate(Moment(selectedDate))
-
-    console.log(startDate.format(), endDate.format())
-  }
+    setEndDate(Moment(selectedDate));
+  };
+  
+  useEffect(() => {
+    console.log(startDate.format(), endDate.format());
+  }, [startDate, endDate]);
 
   return (
     <div className="calendar-wrapper">
@@ -43,7 +45,7 @@ const RangeDataPicker: React.FC = () => {
         />
       </div>
     </div>
-  )
-}
+  );
+};
 
 export default RangeDataPicker;
