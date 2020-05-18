@@ -16,7 +16,7 @@ const App: React.FC = () => {
         <Header />
         <Route exact path='/' component={Main} />
         <Route path='/edit' component={Edit} />
-        <Route path='/:event' component={Event} />
+        <Route path='/event/:event' component={Event} />
       </Router>
     </React.Fragment>
   );

@@ -30,7 +30,7 @@ services:
       - '27017:27017'
     volumes:
       - './mongo/db:/mongo/data/db'
-      - './mongo/configdb:/mongo/data/configdb'
+      # - './mongo/configdb:/mongo/data/configdb'
   server:
     build:
       context: ./

@@ -14,18 +14,10 @@ app.use((req, res, next) => {
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 
-const data = {
-  name: "taro",
-  age: 50
-};
-
 // GetとPostのルーティング
 const router: express.Router = express.Router();
 router.get('/', TableController.getEvent);
-router.post('/', (req: express.Request, res: express.Response) => {
-  console.log(req.body);
-  res.send(data);
-});
+router.post('/', TableController.createEvent);
 app.use(router);
 
 
