@@ -36,9 +36,6 @@ const App: React.FC = () => {
 
   return (
     <div className="table-wrapper">
-      <div>
-        <span>{ data.title }</span>
-      </div>
       <div className="table-line">
         <div className="table-cell"></div>
         {

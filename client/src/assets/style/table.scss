@@ -1,30 +1,33 @@
 .table-wrapper {
-  margin: 0 auto;
+  margin: 20px auto;
+  width: 90%;
+  overflow: hidden;
 }
 
 .table-line {
-  width: 400px;
+  width: 100%;
   height: 50px;
+  line-height: 50px;
   display: flex;
   flex-direction: row;
-  justify-content: center;
+  justify-content: space-around;
   margin: 0 auto;
   &:last-child {
-    border-bottom: 1px solid #000000;
+    border-bottom: 2px solid #000000;
   }
 }
 
 .table-cell+ .table-cell {
   border-right: none;
-  border-left: 1px solid #000000;
+  border-left: 2px solid #000000;
 }
 
 .table-cell {
-  width: 100px;
+  width: 100%;
   text-align: center;
-  border-left: 1px solid #000000;
-  border-top: 1px solid #000000;
+  border-left: 2px solid #000000;
+  border-top: 2px solid #000000;
   &:last-child {
-    border-right: 1px solid #000000;
+    border-right: 2px solid #000000;
   }
 }
