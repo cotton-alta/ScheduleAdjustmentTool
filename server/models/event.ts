@@ -7,4 +7,4 @@ const mongoose = require("mongoose"),
     endDate: String
   });
 
-export const Event = mongoose.model("event", eventSchema);
+module.exports = mongoose.model("event", eventSchema);

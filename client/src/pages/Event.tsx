@@ -9,7 +9,8 @@ const Event: React.FC = () => {
   useEffect(() => {
     axios.get("/")
       .then(result => {
-        setEventData(result.data);
+        console.log(result)
+        // setEventData(result.data);
       });
   });
 
