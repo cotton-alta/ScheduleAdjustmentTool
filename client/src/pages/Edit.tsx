@@ -8,6 +8,7 @@ import "../assets/style/edit.scss";
 const App: React.FC = () => {
   const initDate = Moment().format();
   const [title, setTitle] = useState(""),
+        [password, setPassword] = useState(""),
         [description, setDescription] = useState(""),
         [startDate, setStartDate]: [
           string,
@@ -21,6 +22,9 @@ const App: React.FC = () => {
   const changeTitle = (e: React.ChangeEvent<HTMLInputElement>) => {
     setTitle(e.target.value);
   };
+  const changePassword = (e: React.ChangeEvent<HTMLInputElement>) => {
+    setPassword(e.target.value);
+  };
   const changeDescription = (e: React.ChangeEvent<HTMLTextAreaElement>) => {
     setDescription(e.target.value);
     console.log("description : ", description);
@@ -31,7 +35,8 @@ const App: React.FC = () => {
       title: title,
       description: description,
       startDate: startDate,
-      endDate: endDate
+      endDate: endDate,
+      password: password
     };
     const data = await axios.post('/',
       inputData,
@@ -54,6 +59,8 @@ const App: React.FC = () => {
       <input type="text" value={title} onChange={changeTitle}/>
       <span className="edit-title">詳細</span>
       <textarea cols={10} value={description} onChange={changeDescription} />
+      <span className="edit-title">パスワード</span>
+      <input type="text" value={password} onChange={changePassword}/>
       <RangeDataPicker 
         startDate={startDate}
         endDate={endDate}
