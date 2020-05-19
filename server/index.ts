@@ -2,6 +2,8 @@ import express from "express";
 import mongoose from "mongoose";
 import * as TableController from "./controllers/tableController";
 
+require('dotenv').config();
+
 const app: express.Express = express();
 
 // CORSの許可
@@ -16,15 +18,17 @@ app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 
 const options = {
-  useNewUrlParser: true,
+  user: process.env.MONGO_USERNAME,
+  pass: process.env.MONGO_PASSWORD,
+  useNewUrlParser: false,
   useUnifiedTopology: false
 }
 
-mongoose.connect("mongodb://mongo:27017/schedule?authSource=admin", options);
+mongoose.connect("mongodb://mongo:27017/schedule", options);
 
 // GetとPostのルーティング
 const router: express.Router = express.Router();
-router.get('/', TableController.getEvent);
+router.get('/api/v1/events/:event', TableController.getEvent);
 router.post('/', TableController.createEvent);
 app.use(router);
 
