@@ -6,6 +6,9 @@ import Edit from "./pages/Edit";
 import Event from "./pages/Event";
 import Header from "./components/layouts/header";
 
+import "./assets/style/reset.scss";
+import "./assets/style/variables.scss";
+
 import axios from "axios";
 axios.defaults.baseURL = "http://localhost:3333";
 
