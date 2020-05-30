@@ -1,11 +1,35 @@
-import React, { useState, useEffect, Fragment } from "react";
+import React, { useState, useEffect, useReducer, useContext, Fragment } from "react";
 import RangeDataPicker from "../components/ui/calendar";
 import axios from "axios";
 import Moment from "moment";
+import { eventAction } from "../actions/event";
 
 import "../assets/style/edit.scss";
 
+const initEvent = {
+  title: "sample",
+  password: "password",
+  description: "説明",
+  startDate: "2020/05/31",
+  endDate: "2020/05/31"
+};
+const EditContext = React.createContext({});
+
+export const EditContextProvider = (props: any) => {
+  const [stateEdit, dispatch] = useReducer(eventAction, initEvent);
+  const value = { stateEdit, dispatch };
+  return (
+    <EditContext.Provider value={value}>
+      { props.children }
+    </EditContext.Provider>
+  )
+};
+
+
+
 const App: React.FC = () => {
+  const { stateEdit, dispatch } = useContext(EditContext);
+
   const initDate = Moment().format();
   const [title, setTitle] = useState(""),
         [password, setPassword] = useState(""),
@@ -66,7 +90,7 @@ const App: React.FC = () => {
         endDate={endDate}
         setStartDate={setStartDate}
         setEndDate={setEndDate}
-      />
+        />
       <div className="edit-button" onClick={postData}>送信</div>
     </div>
   );
