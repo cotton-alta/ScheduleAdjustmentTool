@@ -6,6 +6,7 @@ import { eventAction } from "../actions/event";
 
 import "../assets/style/edit.scss";
 
+// const EditContext = React.createContext<any>(null);
 const initEvent = {
   title: "sample",
   password: "password",
@@ -13,28 +14,12 @@ const initEvent = {
   startDate: "2020/05/31",
   endDate: "2020/05/31"
 };
-const EditContext = React.createContext({});
-
-export const EditContextProvider = (props: any) => {
-  const [stateEdit, dispatch] = useReducer(eventAction, initEvent);
-  const value = { stateEdit, dispatch };
-  return (
-    <EditContext.Provider value={value}>
-      { props.children }
-    </EditContext.Provider>
-  )
-};
-
-
 
 const App: React.FC = () => {
-  const { stateEdit, dispatch } = useContext(EditContext);
+  const [ stateEdit, dispatch ] = useReducer(eventAction, initEvent);
 
   const initDate = Moment().format();
-  const [title, setTitle] = useState(""),
-        [password, setPassword] = useState(""),
-        [description, setDescription] = useState(""),
-        [startDate, setStartDate]: [
+  const [startDate, setStartDate]: [
           string,
           React.Dispatch<React.SetStateAction<string>>
         ] = useState<string>(initDate),
@@ -44,54 +29,64 @@ const App: React.FC = () => {
         ] = useState<string>(initDate);
 
   const changeTitle = (e: React.ChangeEvent<HTMLInputElement>) => {
-    setTitle(e.target.value);
+    dispatch({
+      type: "checkEvent",
+      payload: {
+        title: e.target.value
+      }
+    });
   };
   const changePassword = (e: React.ChangeEvent<HTMLInputElement>) => {
-    setPassword(e.target.value);
+    dispatch({
+      type: "checkEvent",
+      payload: {
+        password: e.target.value
+      }
+    });
   };
   const changeDescription = (e: React.ChangeEvent<HTMLTextAreaElement>) => {
-    setDescription(e.target.value);
-    console.log("description : ", description);
+    dispatch({
+      type: "checkEvent",
+      payload: {
+        description: e.target.value
+      }
+    });
   };
 
   const postData = async () => {
     let inputData = {
-      title: title,
-      description: description,
+      title: stateEdit.title,
+      description: stateEdit.description,
       startDate: startDate,
       endDate: endDate,
-      password: password
+      password: stateEdit.password
     };
     const data = await axios.post('/',
       inputData,
       { headers: {"Content-Type":"application/json"} }
     );
-    console.log(data);
+    console.log("data : ", data);
   };
-  
-  useEffect(() => {
-    console.log("title : ", title);
-  }, [title]);
 
-  useEffect(() => {
-    console.log(startDate, endDate);
-  }, [startDate, endDate]);
+  // useEffect(() => {
+  //   console.log(startDate, endDate);
+  // }, [startDate, endDate]);
 
   return (
     <div className="edit-wrapper">
       <span className="edit-title">イベント名</span>
-      <input type="text" value={title} onChange={changeTitle}/>
+      <input type="text" value={stateEdit.title} onChange={changeTitle}/>
       <span className="edit-title">詳細</span>
-      <textarea cols={10} value={description} onChange={changeDescription} />
+      <textarea cols={10} value={stateEdit.description} onChange={changeDescription} />
       <span className="edit-title">パスワード</span>
-      <input type="text" value={password} onChange={changePassword}/>
+      <input type="text" value={stateEdit.password} onChange={changePassword}/>
       <RangeDataPicker 
         startDate={startDate}
         endDate={endDate}
         setStartDate={setStartDate}
         setEndDate={setEndDate}
         />
-      <div className="edit-button" onClick={postData}>送信</div>
+      <div className="edit-button" onClick={postData}>確認</div>
     </div>
   );
 };
