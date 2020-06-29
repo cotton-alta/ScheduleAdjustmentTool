@@ -29,7 +29,7 @@ mongoose.connect("mongodb://mongo:27017/schedule", options);
 // GetとPostのルーティング
 const router: express.Router = express.Router();
 router.get('/api/v1/events/:event', TableController.getEvent);
-router.post('/', TableController.createEvent);
+router.post('/api/v1/', TableController.createEvent);
 app.use(router);
 
 // 3333番ポートでAPIサーバ起動

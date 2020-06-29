@@ -6,7 +6,6 @@ import { eventAction } from "../actions/event";
 
 import "../assets/style/edit.scss";
 
-// const EditContext = React.createContext<any>(null);
 const initEvent = {
   title: "sample",
   password: "password",
@@ -61,16 +60,11 @@ const App: React.FC = () => {
       endDate: endDate,
       password: stateEdit.password
     };
-    const data = await axios.post('/',
+    const data = await axios.post('/api/v1/',
       inputData,
       { headers: {"Content-Type":"application/json"} }
     );
-    console.log("data : ", data);
   };
-
-  // useEffect(() => {
-  //   console.log(startDate, endDate);
-  // }, [startDate, endDate]);
 
   return (
     <div className="edit-wrapper">
