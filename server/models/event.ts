@@ -8,7 +8,13 @@ const mongoose = require("mongoose"),
     description: String,
     startDate: String,
     endDate: String,
-    password: String
+    password: String,
+    user: [{
+      name: String,
+      possible: [{type: String}],
+      subtle: [{type: String}],
+      impossible: [{type: String}]
+    }]
   });
 
 eventSchema.pre("save", async function(this: any, next: NextFunction) {
