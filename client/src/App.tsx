@@ -6,6 +6,7 @@ import Main from "./pages/Main";
 import Edit from "./pages/Edit";
 import Event from "./pages/Event";
 import Header from "./components/layouts/header";
+import Join from "./pages/Join";
 
 import "./assets/style/reset.scss";
 import "./assets/style/variables.scss";
@@ -21,6 +22,7 @@ const App: React.FC = () => {
         <Route exact path='/' component={Main} />
         <Route path='/edit' component={Edit} />
         <Route path='/event/:event' component={Event} />
+        <Route path='/join/:event' component={Join} />
       </Router>
     </React.Fragment>
   );

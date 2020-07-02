@@ -1,7 +1,7 @@
 import express from "express";
 const Event = require("../models/event");
 
-export const getEvent = (req: express.Request, res: express.Response) => {
+const getEvent = (req: express.Request, res: express.Response) => {
   console.log(req.params.event);
   // Event.findById(req.params.event)
   Event.find({})
@@ -11,7 +11,7 @@ export const getEvent = (req: express.Request, res: express.Response) => {
   })
 };
 
-export const createEvent = (req: express.Request, res: express.Response) => {
+const createEvent = (req: express.Request, res: express.Response) => {
   console.log(req.body);
   // let newEvent = new Event({
   //   title: req.body.title,
@@ -29,3 +29,14 @@ export const createEvent = (req: express.Request, res: express.Response) => {
   // })
   res.send(200);
 };
+
+const joinEvent = (req: express.Request, res: express.Response) => {
+  console.log(req.body);
+  res.send(200);
+};
+
+export {
+  getEvent,
+  createEvent,
+  joinEvent
+}

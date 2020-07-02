@@ -1,5 +1,5 @@
 import React, { useState, useEffect, useReducer, Fragment } from "react";
-import { useParams } from "react-router-dom";
+import { useParams, Link } from "react-router-dom";
 import axios from "axios";
 import Moment from "moment";
 import { eventAction } from "../actions/event";
@@ -92,6 +92,11 @@ const Event: React.FC = () => {
           </tr>
           </tbody>
         </table>
+        <div className="event-join-button">
+          <Link to={`/join/${event}`}>
+            このイベントに参加
+          </Link>
+        </div>
       </div>
     )
   }
