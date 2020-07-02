@@ -1,21 +1,35 @@
-import React, { useState, useEffect, useReducer, useContext, Fragment } from "react";
-import RangeDataPicker from "../components/ui/calendar";
+import 
+  React,
+  { 
+    useState,
+    useEffect,
+    useReducer,
+    useContext,
+    Fragment
+  } from "react";
 import axios from "axios";
 import Moment from "moment";
-
-import "../assets/style/edit.scss";
-
-const initEvent = {
-  title: "sample",
-  password: "password",
-  description: "説明",
-  startDate: "2020/05/31",
-  endDate: "2020/05/31"
-};
+import { EventContext } from "../App";
+import { DateList } from "../components/ui/DateList";
 
 const Join: React.FC = () => {
+  const { stateEdit, dispatch } = useContext(EventContext);
+  useEffect(() => {
+
+  }, []);
+
   return (
     <div className="join-wrapper">
+      <p>
+        { stateEdit.title }
+      </p>
+      <table className="event-table-wrapper">
+        <tbody>
+          <tr>
+            <DateList data={stateEdit}/>
+          </tr>
+        </tbody>
+      </table>
     </div>
   );
 };

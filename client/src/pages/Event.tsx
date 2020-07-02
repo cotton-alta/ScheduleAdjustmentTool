@@ -1,33 +1,23 @@
-import React, { useState, useEffect, useReducer, Fragment } from "react";
+import
+  React, 
+  {
+    useState,
+    useEffect,
+    useReducer,
+    useContext, 
+    Fragment
+  } from "react";
 import { useParams, Link } from "react-router-dom";
 import axios from "axios";
 import Moment from "moment";
 import { eventAction } from "../actions/event";
+import { EventContext } from "../App";
+import { DateList } from "../components/ui/DateList";
 
 import "../assets/style/event.scss";
 
-const initEvent = {
-  title: "sample",
-  password: "password",
-  description: "説明",
-  startDate: "2020/05/31",
-  endDate: "2020/06/02"
-};
-
-const DateList = (props: any) => {
-  const start = Moment(props.data.startDate);
-  const end = Moment(props.data.endDate);
-  const list = [];
-  while(start.format() != end.format()) {
-    list.push(<th>{ start.format("YYYY-MM-DD") }</th>);
-    start.add('days', 1);
-  }
-  list.push(<th>{ start.format("YYYY-MM-DD") }</th>);
-  return (<Fragment>{ list }</Fragment>);
-};
-
 const Event: React.FC = () => {
-  const [ stateEdit, dispatch ] = useReducer(eventAction, initEvent);
+  const { stateEdit, dispatch } = useContext(EventContext);
   const { event } = useParams();
   //contextで認証状態を確認（とりあえず開発中はtureにしてる）
   const [authenticated, setAuthenticated] = useState(true);
@@ -37,16 +27,17 @@ const Event: React.FC = () => {
     // 5ef9d12b5606394cf99f404a
     axios.get(`/api/v1/events/${event}`)
       .then((result: any) => {
+        const data = result.data[0];
         console.log(result)
-        setEventData(result.data[0].title);
+        setEventData(data.title);
         dispatch({
           type: "checkEvent",
           payload: {
-            title: result.data[0].title,
-            description: result.data[0].description,
-            startDate: result.data[0].startDate,
-            endDate: result.data[0].endDate,
-            password: result.data[0].password
+            title:       data.title,
+            description: data.description,
+            startDate:   data.startDate,
+            endDate:     data.endDate,
+            password:    data.password
           }
         });
       });
