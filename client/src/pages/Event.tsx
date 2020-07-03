@@ -37,7 +37,8 @@ const Event: React.FC = () => {
             description: data.description,
             startDate:   data.startDate,
             endDate:     data.endDate,
-            password:    data.password
+            password:    data.password,
+            user:        data.user
           }
         });
       });

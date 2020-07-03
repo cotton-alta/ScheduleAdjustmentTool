@@ -13,6 +13,8 @@ import { EventContext } from "../App";
 import { DateList } from "../components/ui/DateList";
 import { userAction } from "../actions/user";
 
+import "../assets/style/join.scss";
+
 type User = {
   name:       string,
   possible:   string[],
@@ -38,21 +40,21 @@ const CheckList = (props: any) => {
 
   while(start.format() != end.format()) {
     list.push(
-      <th>
+      <td>
         <p>
           <input
             type="radio"
             name={`list_${list.length}`}
             value="possible"
             onChange={dateCheck}
-          />
+            />
             可能
           <input
             type="radio" 
             name={`list_${list.length}`} 
             value="subtle" 
             onChange={dateCheck}
-          />
+            />
             微妙
           <input 
             type="radio" 
@@ -62,12 +64,12 @@ const CheckList = (props: any) => {
           />
             不可能
         </p>
-      </th>
+      </td>
     );
     start.add('days', 1);
   }
   list.push(
-    <th>
+    <td>
     <p>
       <input
         type="radio"
@@ -83,7 +85,7 @@ const CheckList = (props: any) => {
         onChange={dateCheck}
       />
         微妙
-      <input 
+      <input
         type="radio" 
         name={`list_${list.length}`} 
         value="impossible" 
@@ -91,30 +93,56 @@ const CheckList = (props: any) => {
       />
         不可能
     </p>
-  </th>
+  </td>
   );
   return (<Fragment>{ list }</Fragment>);
 };
 
 const Join: React.FC = () => {
   const { stateEdit, dispatch } = useContext(EventContext);
-
-  // initUserの値を書き換える処理
-
-  // const { stateUser, userDispatch } = useReducer(userAction, initUser);
+  
+  const [ stateUser, userDispatch ] = useReducer(userAction, initUser);
   useEffect(() => {
-
+    const start = Moment(stateEdit.startDate);
+    const end = Moment(stateEdit.endDate);
+    const list = [];
+    while(start.format() != end.format()) {
+      initUser.impossible.push(start.format("YYYY-MM-DD"));
+      start.add('days', 1);
+    }
+    initUser.impossible.push(start.format("YYYY-MM-DD"));
+    userDispatch({
+      type: "dateChange",
+      payload: {
+        name: "",
+        impossible : initUser.impossible
+      }
+    });
+    console.log(stateUser);
   }, []);
+
+  const postData = () => {
+    axios.post("", stateUser)
+      .then((result: any) => {
+        dispatch({
+          type: "setUser",
+          payload: {
+            stateUser
+          }
+        })
+      })
+  };
 
   const changeName = (e: React.ChangeEvent<HTMLInputElement>) => {
     console.log(e.target.value);
 
-    dispatch({
+    userDispatch({
       type: "nameChange",
       payload: {
-        // description: e.target.value
+        name: e.target.value
       }
     });
+    console.log(stateUser);
   };
 
   return (
@@ -130,6 +158,12 @@ const Join: React.FC = () => {
           </tr>
         </tbody>
       </table>
+      <div 
+        className="join-button"
+        onClick={postData}
+      >
+        送信
+      </div>
     </div>
   );
 };
