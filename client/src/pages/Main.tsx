@@ -13,7 +13,6 @@ const App: React.FC = () => {
 
   return (
     <div className="main-wrapper">
-      <Table />
     </div>
   );
 };

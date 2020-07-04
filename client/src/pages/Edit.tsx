@@ -17,15 +17,15 @@ const initEvent = {
 const App: React.FC = () => {
   const [ stateEdit, dispatch ] = useReducer(eventAction, initEvent);
 
-  const initDate = Moment().format();
+  const initDate = Moment();
   const [startDate, setStartDate]: [
           string,
           React.Dispatch<React.SetStateAction<string>>
-        ] = useState<string>(initDate),
+        ] = useState<string>(initDate.format()),
         [endDate, setEndDate]: [
           string,
           React.Dispatch<React.SetStateAction<string>>
-        ] = useState<string>(initDate);
+        ] = useState<string>(initDate.add("days", 3).format());
 
   const changeTitle = (e: React.ChangeEvent<HTMLInputElement>) => {
     dispatch({
@@ -52,18 +52,21 @@ const App: React.FC = () => {
     });
   };
 
-  const postData = async () => {
+  const postData = () => {
     let inputData = {
-      title: stateEdit.title,
+      title:       stateEdit.title,
       description: stateEdit.description,
-      startDate: startDate,
-      endDate: endDate,
-      password: stateEdit.password
+      startDate:   startDate,
+      endDate:     endDate,
+      password:    stateEdit.password
     };
-    const data = await axios.post('/api/v1/',
+    axios.post('/api/v1/event',
       inputData,
       { headers: {"Content-Type":"application/json"} }
-    );
+    )
+    .then((result: any) => {
+
+    });
   };
 
   return (

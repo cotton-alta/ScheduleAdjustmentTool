@@ -22,6 +22,7 @@ const UserList = (props: any) => {
   let end = Moment(props.data.endDate).add("days", 1);
   let list: any = [];
 
+  list.push(<th>{ props.user.name }</th>);
   while(start.format("YYYY-MM-DD") != end.format("YYYY-MM-DD")) {
     let possible_date = props.user.possible.filter((item: any) => {
       return item === start.format("YYYY-MM-DD");
@@ -34,7 +35,7 @@ const UserList = (props: any) => {
     });
     if(!possible_date[0]) {
       if(!subtle_date[0]) {
-        list.push(<td>✕</td>);
+        list.push(<td>×</td>);
       } else {
         list.push(<td>△</td>);
       }
@@ -56,9 +57,11 @@ const Event: React.FC = () => {
   
   useEffect(() => {
     // 5ef9d12b5606394cf99f404a
+    // 5f005ec0e75af0003168bae3
+    // 5f00657fac7f490031940f8f
     axios.get(`/api/v1/events/${event}`)
     .then((result: any) => {
-      const data = result.data[0];
+      const data = result.data;
       console.log(result)
       setEventData(data.title);
       dispatch({
@@ -114,12 +117,6 @@ const Event: React.FC = () => {
           <tr>
             <th>名前</th>
             <DateList data={stateEdit}/>
-          </tr>
-          <tr>
-            <th>Taro</th>
-            <td>b</td>
-            <td>b</td>
-            <td>b</td>
           </tr>
           <ListRender />
           </tbody>
