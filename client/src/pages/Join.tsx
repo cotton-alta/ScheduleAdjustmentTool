@@ -7,6 +7,7 @@ import
     useContext,
     Fragment
   } from "react";
+import { useParams } from "react-router-dom";
 import axios from "axios";
 import Moment from "moment";
 import { EventContext } from "../App";
@@ -100,37 +101,44 @@ const CheckList = (props: any) => {
 
 const Join: React.FC = () => {
   const { stateEdit, dispatch } = useContext(EventContext);
-  
+  const { event } = useParams();
   const [ stateUser, userDispatch ] = useReducer(userAction, initUser);
   useEffect(() => {
     const start = Moment(stateEdit.startDate);
     const end = Moment(stateEdit.endDate);
     const list = [];
+    initUser.possible = [];  
+    initUser.subtle = [];
+    initUser.impossible = [];
     while(start.format() != end.format()) {
       initUser.impossible.push(start.format("YYYY-MM-DD"));
       start.add('days', 1);
     }
     initUser.impossible.push(start.format("YYYY-MM-DD"));
+    console.log(initUser.impossible);
     userDispatch({
-      type: "dateChange",
+      type: "dateInit",
       payload: {
         name: "",
-        impossible : initUser.impossible
+        impossible : initUser.impossible,
+        subtle: [],
+        possible: []
       }
     });
-    console.log(stateUser);
   }, []);
 
   const postData = () => {
-    axios.post("", stateUser)
+    dispatch({
+      type: "setUser",
+      payload: {
+        stateUser
+      }
+    });
+    console.log(stateEdit);
+    axios.post(`/api/v1/events/${event}`, stateEdit.user)
       .then((result: any) => {
-        dispatch({
-          type: "setUser",
-          payload: {
-            stateUser
-          }
-        })
-      })
+      
+      });
   };
 
   const changeName = (e: React.ChangeEvent<HTMLInputElement>) => {

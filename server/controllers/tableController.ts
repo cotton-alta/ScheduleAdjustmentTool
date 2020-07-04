@@ -31,8 +31,16 @@ const createEvent = (req: express.Request, res: express.Response) => {
 };
 
 const joinEvent = (req: express.Request, res: express.Response) => {
+  console.log(req.params.event);
   console.log(req.body);
-  res.send(200);
+  Event.findOneAndUpdate(
+    { _id: req.params.event },
+    { user: req.body }
+  )
+  .then((result: any) => {
+    console.log(result);
+    res.send(200);
+  });
 };
 
 export {
