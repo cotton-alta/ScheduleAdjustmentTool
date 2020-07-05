@@ -4,7 +4,7 @@ import '../../assets/style/table.scss';
 const App: React.FC = () => {
   interface StringObjectKey {
     [key: string]: any;
-  }
+  };
   const data = {
     "title": "event",
     "dates": [

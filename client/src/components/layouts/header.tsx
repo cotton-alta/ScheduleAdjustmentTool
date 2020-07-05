@@ -14,7 +14,7 @@ const App: React.FC = () => {
       </div>
       <div className="header-tab">過去の予定</div>
     </div>
-  )
-}
+  );
+};
 
 export default App;
