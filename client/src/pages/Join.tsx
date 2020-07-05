@@ -12,7 +12,10 @@ import axios from "axios";
 import Moment from "moment";
 import { EventContext } from "../App";
 import { DateList } from "../components/ui/DateList";
+import { CheckList } from "../components/ui/CheckList";
 import { userAction } from "../actions/user";
+import { withRouter } from "react-router";
+import history from "../history";
 
 import "../assets/style/join.scss";
 
@@ -30,75 +33,6 @@ let initUser: User = {
   impossible: []
 }
 
-const CheckList = (props: any) => {
-  const start = Moment(props.data.startDate);
-  const end = Moment(props.data.endDate);
-  const list = [];
-
-  const dateCheck = (e: React.ChangeEvent<HTMLInputElement>) => {
-    console.log(e.target.value);
-  };
-
-  while(start.format() != end.format()) {
-    list.push(
-      <td>
-        <p>
-          <input
-            type="radio"
-            name={`list_${list.length}`}
-            value="possible"
-            onChange={dateCheck}
-            />
-            可能
-          <input
-            type="radio" 
-            name={`list_${list.length}`} 
-            value="subtle" 
-            onChange={dateCheck}
-            />
-            微妙
-          <input 
-            type="radio" 
-            name={`list_${list.length}`} 
-            value="impossible" 
-            onChange={dateCheck}
-          />
-            不可能
-        </p>
-      </td>
-    );
-    start.add('days', 1);
-  }
-  list.push(
-    <td>
-    <p>
-      <input
-        type="radio"
-        name={`list_${list.length}`}
-        value="possible"
-        onChange={dateCheck}
-      />
-        可能
-      <input
-        type="radio" 
-        name={`list_${list.length}`} 
-        value="subtle" 
-        onChange={dateCheck}
-      />
-        微妙
-      <input
-        type="radio" 
-        name={`list_${list.length}`} 
-        value="impossible" 
-        onChange={dateCheck}
-      />
-        不可能
-    </p>
-  </td>
-  );
-  return (<Fragment>{ list }</Fragment>);
-};
-
 const Join: React.FC = () => {
   const { stateEdit, dispatch } = useContext(EventContext);
   const { event } = useParams();
@@ -106,7 +40,6 @@ const Join: React.FC = () => {
   useEffect(() => {
     const start = Moment(stateEdit.startDate);
     const end = Moment(stateEdit.endDate);
-    const list = [];
     initUser.possible = [];  
     initUser.subtle = [];
     initUser.impossible = [];
@@ -134,23 +67,19 @@ const Join: React.FC = () => {
         stateUser
       }
     });
-    console.log(stateEdit);
     axios.post(`/api/v1/events/${event}`, stateEdit.user)
       .then((result: any) => {
-      
+        history.push(`/event/${result.data._id}`);
       });
   };
 
   const changeName = (e: React.ChangeEvent<HTMLInputElement>) => {
-    console.log(e.target.value);
-
     userDispatch({
       type: "nameChange",
       payload: {
         name: e.target.value
       }
     });
-    console.log(stateUser);
   };
 
   return (
@@ -166,14 +95,16 @@ const Join: React.FC = () => {
           </tr>
         </tbody>
       </table>
-      <div 
+      <div
         className="join-button"
         onClick={postData}
       >
         送信
       </div>
+      {/* /.join-button */}
     </div>
+    // /.join-wrapper
   );
 };
 
-export default Join;
+export default withRouter(Join);

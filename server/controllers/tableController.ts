@@ -26,8 +26,8 @@ const createEvent = (req: express.Request, res: express.Response) => {
     if(err) {
       console.log(err);
     }
-    res.send("create event!");
-  })
+    res.send(newEvent);
+  });
 };
 
 const joinEvent = (req: express.Request, res: express.Response) => {
@@ -38,8 +38,8 @@ const joinEvent = (req: express.Request, res: express.Response) => {
     { user: req.body }
   )
   .then((result: any) => {
-    console.log(result);
-    res.send(200);
+    // console.log(result);
+    res.send(result);
   });
 };
 

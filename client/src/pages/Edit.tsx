@@ -3,6 +3,8 @@ import RangeDataPicker from "../components/ui/calendar";
 import axios from "axios";
 import Moment from "moment";
 import { eventAction } from "../actions/event";
+import { withRouter } from "react-router";
+import history from "../history";
 
 import "../assets/style/edit.scss";
 
@@ -65,7 +67,8 @@ const App: React.FC = () => {
       { headers: {"Content-Type":"application/json"} }
     )
     .then((result: any) => {
-
+      console.log(result);
+      history.push(`/check/${result.data._id}`);
     });
   };
 
@@ -88,4 +91,4 @@ const App: React.FC = () => {
   );
 };
 
-export default App;
+export default withRouter(App);
