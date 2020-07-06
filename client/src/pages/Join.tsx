@@ -26,21 +26,24 @@ type User = {
   impossible: string[]
 }
 
-let initUser: User = {
+const initUser: User = {
   name: "",
   possible: [],
   subtle: [],
   impossible: []
 }
 
-const Join: React.FC = () => {
+const UserContext = React.createContext<any>(null);
+
+const JoinComponent: React.FC = () => {
   const { stateEdit, dispatch } = useContext(EventContext);
   const { event } = useParams();
   const [ stateUser, userDispatch ] = useReducer(userAction, initUser);
+  const value = { stateUser, userDispatch };
   useEffect(() => {
     const start = Moment(stateEdit.startDate);
     const end = Moment(stateEdit.endDate);
-    initUser.possible = [];  
+    initUser.possible = [];
     initUser.subtle = [];
     initUser.impossible = [];
     while(start.format() != end.format()) {
@@ -75,7 +78,7 @@ const Join: React.FC = () => {
 
   const changeName = (e: React.ChangeEvent<HTMLInputElement>) => {
     userDispatch({
-      type: "nameChange",
+      type: "dataChange",
       payload: {
         name: e.target.value
       }
@@ -83,28 +86,35 @@ const Join: React.FC = () => {
   };
 
   return (
-    <div className="join-wrapper">
-      <input type="text" onChange={changeName} />
-      <table className="event-table-wrapper">
-        <tbody>
-          <tr>
-            <DateList data={ stateEdit } />
-          </tr>
-          <tr>
-            <CheckList data={ stateEdit } />
-          </tr>
-        </tbody>
-      </table>
-      <div
-        className="join-button"
-        onClick={postData}
-      >
-        送信
+    <UserContext.Provider value={value}>
+      <div className="join-wrapper">
+        <input type="text" onChange={changeName} />
+        <table className="event-table-wrapper">
+          <tbody>
+            <tr>
+              <DateList data={ stateEdit } />
+            </tr>
+            <tr>
+              <CheckList data={ stateEdit } />
+            </tr>
+          </tbody>
+        </table>
+        <div
+          className="join-button"
+          onClick={postData}
+          >
+          送信
+        </div>
+        {/* /.join-button */}
       </div>
-      {/* /.join-button */}
-    </div>
-    // /.join-wrapper
+      {/* /.join-wrapper */}
+    </UserContext.Provider>
   );
 };
 
-export default withRouter(Join);
+const Join = withRouter(JoinComponent);
+
+export {
+  Join,
+  UserContext
+};

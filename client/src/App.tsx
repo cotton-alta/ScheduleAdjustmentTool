@@ -7,7 +7,7 @@ import Main from "./pages/Main";
 import Edit from "./pages/Edit";
 import Event from "./pages/Event";
 import Header from "./components/layouts/header";
-import Join from "./pages/Join";
+import { Join } from "./pages/Join";
 import CreateResult from "./pages/CreateResult";
 import history from "./history";
 

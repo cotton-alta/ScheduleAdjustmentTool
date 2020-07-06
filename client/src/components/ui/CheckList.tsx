@@ -1,16 +1,47 @@
-import React, { Fragment } from "react";
+import React, { useContext, Fragment } from "react";
 import Moment from "moment";
+import { UserContext } from "../../pages/Join";
+
+type UpdateUserProperty = {
+  [key: string]: Array<string>
+}
 
 const CheckList = (props: any) => {
   const start = Moment(props.data.startDate);
   const end = Moment(props.data.endDate).add("days", 1);
   const list = [];
 
-  const dateCheck = (e: React.ChangeEvent<HTMLInputElement>) => {
-    console.log(e.target.value);
+  const { stateUser, userDispatch } = useContext(UserContext);
+
+  const dateCheck = (e: React.ChangeEvent<HTMLInputElement>, index: number, date: string) => {
+    // console.log(index);
+    // console.log(e.target.value);
+    const participation = e.target.value;
+    console.log(stateUser);
+    // console.log(date);
+    let updateUser: UpdateUserProperty = {
+      possible: [],
+      subtle: [],
+      impossible: []
+    };
+    updateUser.possible = stateUser.possible.filter((item: string) => { return item != date });
+    updateUser.subtle = stateUser.subtle.filter((item: string) => { return item != date });
+    updateUser.impossible = stateUser.impossible.filter((item: string) => { return item != date });
+    
+    updateUser[participation].push(date);
+    console.log(updateUser);
+    userDispatch({
+      type: "dataChange",
+      payload: {
+        possible: updateUser.possible,
+        subtle: updateUser.subtle,
+        impossible: updateUser.impossible
+      }
+    })
   };
 
   while(start.format("YYYY-MM-DD") != end.format("YYYY-MM-DD")) {
+    let date = start.format("YYYY-MM-DD");
     list.push(
       <td>
         <p>
@@ -18,21 +49,21 @@ const CheckList = (props: any) => {
             type="radio"
             name={`list_${list.length}`}
             value="possible"
-            onChange={dateCheck}
-          />
+            onChange={(e) => {dateCheck(e, list.length - 1, date)}}
+            />
             可能
           <input
             type="radio" 
-            name={`list_${list.length}`} 
+            name={`list_${list.length}`}
             value="subtle" 
-            onChange={dateCheck}
-          />
+            onChange={(e) => {dateCheck(e, list.length - 1, date)}}
+            />
             微妙
           <input 
             type="radio" 
             name={`list_${list.length}`} 
             value="impossible" 
-            onChange={dateCheck}
+            onChange={(e) => {dateCheck(e, list.length - 1, date)}}
           />
             不可能
         </p>
