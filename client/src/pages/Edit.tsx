@@ -18,7 +18,6 @@ const initEvent = {
 
 const App: React.FC = () => {
   const [ stateEdit, dispatch ] = useReducer(eventAction, initEvent);
-
   const initDate = Moment();
   const [startDate, setStartDate]: [
           string,
@@ -37,6 +36,7 @@ const App: React.FC = () => {
       }
     });
   };
+
   const changePassword = (e: React.ChangeEvent<HTMLInputElement>) => {
     dispatch({
       type: "checkEvent",
@@ -45,6 +45,7 @@ const App: React.FC = () => {
       }
     });
   };
+  
   const changeDescription = (e: React.ChangeEvent<HTMLTextAreaElement>) => {
     dispatch({
       type: "checkEvent",

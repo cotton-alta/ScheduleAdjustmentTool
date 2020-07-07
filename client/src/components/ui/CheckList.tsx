@@ -7,29 +7,24 @@ type UpdateUserProperty = {
 }
 
 const CheckList = (props: any) => {
+  const { stateUser, userDispatch } = useContext(UserContext);
   const start = Moment(props.data.startDate);
   const end = Moment(props.data.endDate).add("days", 1);
   const list = [];
 
-  const { stateUser, userDispatch } = useContext(UserContext);
-
   const dateCheck = (e: React.ChangeEvent<HTMLInputElement>, index: number, date: string) => {
-    // console.log(index);
-    // console.log(e.target.value);
     const participation = e.target.value;
-    console.log(stateUser);
-    // console.log(date);
     let updateUser: UpdateUserProperty = {
       possible: [],
       subtle: [],
       impossible: []
     };
+
     updateUser.possible = stateUser.possible.filter((item: string) => { return item != date });
     updateUser.subtle = stateUser.subtle.filter((item: string) => { return item != date });
     updateUser.impossible = stateUser.impossible.filter((item: string) => { return item != date });
-    
     updateUser[participation].push(date);
-    console.log(updateUser);
+    
     userDispatch({
       type: "dataChange",
       payload: {
@@ -50,14 +45,14 @@ const CheckList = (props: any) => {
             name={`list_${list.length}`}
             value="possible"
             onChange={(e) => {dateCheck(e, list.length - 1, date)}}
-            />
+          />
             可能
           <input
             type="radio" 
             name={`list_${list.length}`}
             value="subtle" 
             onChange={(e) => {dateCheck(e, list.length - 1, date)}}
-            />
+          />
             微妙
           <input 
             type="radio" 

@@ -1,11 +1,9 @@
 import 
   React,
   { 
-    useState,
     useEffect,
     useReducer,
-    useContext,
-    Fragment
+    useContext
   } from "react";
 import { useParams } from "react-router-dom";
 import axios from "axios";
@@ -21,9 +19,9 @@ import "../assets/style/join.scss";
 
 type User = {
   name:       string,
-  possible:   string[],
-  subtle:     string[],
-  impossible: string[]
+  possible:   Array<string>,
+  subtle:     Array<string>,
+  impossible: Array<string>
 }
 
 const initUser: User = {

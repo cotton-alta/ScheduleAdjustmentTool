@@ -45,9 +45,10 @@ const UserList = (props: any) => {
 
 const Event: React.FC = () => {
   const { stateEdit, dispatch } = useContext(EventContext);
+  const [ password, setPassword ] = useState("");
   const { event } = useParams();
   //contextで認証状態を確認（とりあえず開発中はtureにしてる）
-  const [authenticated, setAuthenticated] = useState(true);
+  const [authenticated, setAuthenticated] = useState(false);
   const [eventData, setEventData] = useState<any | null>(null);
   
   useEffect(() => {
@@ -72,8 +73,19 @@ const Event: React.FC = () => {
     });
   }, []);
     
+  const changePassword = (e: React.ChangeEvent<HTMLInputElement>) => {
+    setPassword(e.target.value);
+  };
+
+  const postPassword = () => {
+    axios.post("/api/v1/event", password)
+    .then((result: any) => {
+      setAuthenticated(result.auth);
+    });
+  };
+
   const ListRender = () => {
-    const list: any = [];
+    const list: Array<JSX.Element> = [];
     if(!stateEdit.user) {
       return (<tr></tr>);
     } else {
@@ -92,7 +104,22 @@ const Event: React.FC = () => {
   };
     
   if(!authenticated) {
-    return ( <div></div> );
+    return ( 
+      <div className="container">
+        <div>
+          <input 
+            type="text" 
+            onChange={changePassword} 
+          />
+        </div>
+        <div 
+          className="event-button"
+          onClick={postPassword}  
+        >
+          送信
+        </div>
+      </div>
+      );
   } else {
     return (
       <div className="container">
@@ -107,8 +134,8 @@ const Event: React.FC = () => {
           <ListRender />
           </tbody>
         </table>
-        <div className="event-join-button">
-          <Link to={`/join/${event}`}>
+        <div className="event-button">
+          <Link className="event-link" to={`/join/${event}`}>
             このイベントに参加
           </Link>
         </div>
