@@ -1,5 +1,16 @@
 import express from "express";
+import bcrypt from "bcrypt";
 const Event = require("../models/event");
+
+const checkPassword = (req: express.Request, res: express.Response) => {
+  console.log(req.params.event);
+  console.log(req.body);
+  Event.findById(req.params.event)
+  .then((result: any) => {
+    let auth = bcrypt.compareSync(req.body.password, result.password);
+    res.send({ auth });
+  });
+};
 
 const getEvent = (req: express.Request, res: express.Response) => {
   console.log(req.params.event);
@@ -44,6 +55,7 @@ const joinEvent = (req: express.Request, res: express.Response) => {
 };
 
 export {
+  checkPassword,
   getEvent,
   createEvent,
   joinEvent

@@ -72,18 +72,22 @@ const Event: React.FC = () => {
       });
     });
   }, []);
-    
+  
   const changePassword = (e: React.ChangeEvent<HTMLInputElement>) => {
     setPassword(e.target.value);
+    console.log(password);
   };
-
+  
   const postPassword = () => {
-    axios.post("/api/v1/event", password)
+    axios.post(`/api/v1/check/${event}`, 
+      { password: password }
+    )
     .then((result: any) => {
-      setAuthenticated(result.auth);
+      console.log(result);
+      setAuthenticated(result.data.auth);
     });
   };
-
+  
   const ListRender = () => {
     const list: Array<JSX.Element> = [];
     if(!stateEdit.user) {
@@ -95,14 +99,14 @@ const Event: React.FC = () => {
             <UserList
               user={item}
               data={stateEdit}
-            />
+              />
           </tr>
         );
       });
       return (<Fragment>{ list }</Fragment>);
     }
   };
-    
+  
   if(!authenticated) {
     return ( 
       <div className="container">
@@ -110,17 +114,17 @@ const Event: React.FC = () => {
           <input 
             type="text" 
             onChange={changePassword} 
-          />
+            />
         </div>
         <div 
           className="event-button"
           onClick={postPassword}  
-        >
+          >
           送信
         </div>
       </div>
       );
-  } else {
+    } else {
     return (
       <div className="container">
         <div>path : {event}</div>
