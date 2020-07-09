@@ -3,14 +3,12 @@ import
   {
     useState,
     useEffect,
-    useReducer,
     useContext, 
     Fragment
   } from "react";
 import { useParams, Link } from "react-router-dom";
 import axios from "axios";
 import Moment from "moment";
-import { eventAction } from "../actions/event";
 import { EventContext } from "../App";
 import { DateList } from "../components/ui/DateList";
 
@@ -80,7 +78,7 @@ const Event: React.FC = () => {
   
   const postPassword = () => {
     axios.post(`/api/v1/check/${event}`, 
-      { password: password }
+    { password: password }
     )
     .then((result: any) => {
       console.log(result);
@@ -93,6 +91,22 @@ const Event: React.FC = () => {
     if(!stateEdit.user) {
       return (<tr></tr>);
     } else {
+      const start = Moment(stateEdit.startDate);
+      const end = Moment(stateEdit.endDate).add("days", 1);
+      const possible_user_list = [];
+      while(start.format() != end.format()) {
+        let possible_user = 0;
+        stateEdit.user.map((user: any) => {
+          let jadge = user.possible.some((date: string) => date == start.format("YYYY-MM-DD"))
+          if(jadge) {
+            possible_user++;
+          }
+        });
+        possible_user_list.push(possible_user);
+        start.add('days', 1);
+      }
+      console.log("possible_user_list: ", possible_user_list);
+
       stateEdit.user.map((item: any) => {
         list.push(
           <tr>
@@ -110,9 +124,12 @@ const Event: React.FC = () => {
   if(!authenticated) {
     return ( 
       <div className="container">
-        <div>
+        <div className="event-auth-title">
+          イベントパスワード
+        </div>
+        <div className="event-auth-form">
           <input 
-            type="text" 
+            type="text"
             onChange={changePassword} 
             />
         </div>
