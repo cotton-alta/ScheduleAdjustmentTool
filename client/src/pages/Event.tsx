@@ -15,11 +15,6 @@ import { DateList } from "../components/ui/DateList";
 import "../assets/style/event.scss";
 import "../assets/style/table.scss";
 
-type MostDateType = {
-  key: Array<string>,
-  value: number
-};
-
 const UserList = (props: any) => {
   let start = Moment(props.data.startDate);
   let end = Moment(props.data.endDate).add("days", 1);
@@ -199,6 +194,14 @@ const Event: React.FC = () => {
         <div className="event-button">
           <Link className="event-link" to={`/join/${event}`}>
             このイベントに参加
+          </Link>
+        </div>
+        <div>
+          （ホストのみ）
+        </div>
+        <div className="event-button">
+          <Link className="event-link" to={`/decision/${event}`}>
+            日程を決定！
           </Link>
         </div>
       </div>

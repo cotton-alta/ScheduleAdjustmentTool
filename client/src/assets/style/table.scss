@@ -1,9 +1,14 @@
+@import "./variables.scss";
+
 .table {
   &-wrapper {
-    width: 80%;
+    width: 90%;
     overflow: scroll;
     margin: 0 auto;
     text-align: center;
+    @include mq {
+      width: 80%;
+    }
   }
   &-tr {
     height: 50px;

@@ -10,6 +10,7 @@ import Header from "./components/layouts/header";
 import { Join } from "./pages/Join";
 import CreateResult from "./pages/CreateResult";
 import history from "./history";
+import { DateDecision } from "./pages/DateDecision";
 
 import "./assets/style/reset.scss";
 import "./assets/style/variables.scss";
@@ -39,6 +40,7 @@ const App: React.FC = () => {
         <Route path='/event/:event' component={Event} />
         <Route path='/join/:event' component={Join} />
         <Route path='/check/:event' component={CreateResult} />
+        <Route path='/decision/:event' component={DateDecision} />
       </Router>
       </EventContext.Provider>
     </React.Fragment>
