@@ -1,14 +1,67 @@
+@import "./variables.scss";
+
 .result {
+  &-wrapper {
+    min-height: calc(100vh - 50px);
+    width: 90%;
+    max-width: 1000px;
+    margin: 0 auto;
+    margin-top: 30px;
+    @include mq {
+      width: 70%;
+    }
+  }
+
+  &-box {
+    width: 100%;
+    border: 1px solid #000000;
+    border-radius: 5px;
+  }
+
+  &-title {
+    width: 100%;
+    line-height: 40px;
+    text-align: center;
+    font-size: calc(15px + 0.7vw);
+    font-weight: bolder;
+    border-bottom: 1px solid #000000;
+    padding: 20px 0px;
+  }
+
+  &-flex {
+    display: flex;
+    flex-direction: column;
+    width: 75%;
+    margin: 0 auto;
+    @include mq {
+      flex-direction: row;
+    }
+  }
+
+  &-url {
+    width: 100%;
+    font-size: 13px;
+    text-align: center;
+    padding: 50px 0px;
+    @include mq {
+      font-size: calc(15px + 0.7vw);
+    }
+  }
+
   &-button {
     width: 200px;
     height: 50px;
     line-height: 50px;
     text-align: center;
     border: solid 2px #000000;
+    margin: 10px auto 0px auto;
     border-radius: 5px;
-    margin: 30px auto;
     cursor: pointer;
+    @include mq {
+      margin: 30px auto;
+    }
   }
+  
   &-link {
     font-weight: bolder;
     color: #000000;

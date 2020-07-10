@@ -13,6 +13,8 @@
   cursor: pointer;
   &--medium {
     color: #FFFFFF;
+    font-weight: bolder;
+    font-size: calc(15px + 0.2vw);
     text-decoration: none;
   }
 }

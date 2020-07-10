@@ -38,7 +38,7 @@ const CheckList = (props: any) => {
   while(start.format("YYYY-MM-DD") != end.format("YYYY-MM-DD")) {
     let date = start.format("YYYY-MM-DD");
     list.push(
-      <td>
+      <td className="table-td">
         <p>
           <input
             type="radio"

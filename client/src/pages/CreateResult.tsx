@@ -22,20 +22,29 @@ const CreateResult: React.FC = () => {
 
   return (
     <div className="result-wrapper">
-      <div>localhost:3000/event/{ event }</div>
-      <div 
-        className="result-button"
-        onClick={pasteURL}
-      >
-        クリップボードへコピー
+      <div className="result-box">
+        <div className="result-title">
+          イベントページURL
+        </div>
+        <div className="result-url">
+          localhost:3000/event/{ event }
+        </div>
       </div>
-      <div className="result-button">
-        <Link
-          className="result-link"
-          to={`/event/${event}`}
-        >
-          イベントページへ！
-        </Link>
+      <div className="result-flex">
+        <div 
+          className="result-button"
+          onClick={pasteURL}
+          >
+          クリップボードへコピー
+        </div>
+        <div className="result-button">
+          <Link
+            className="result-link"
+            to={`/event/${event}`}
+          >
+            イベントページへ！
+          </Link>
+        </div>
       </div>
     </div>
   )

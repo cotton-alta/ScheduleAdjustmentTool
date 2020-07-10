@@ -87,12 +87,12 @@ const JoinComponent: React.FC = () => {
     <UserContext.Provider value={value}>
       <div className="join-wrapper">
         <input type="text" onChange={changeName} />
-        <table className="event-table-wrapper">
+        <table className="table-wrapper">
           <tbody>
-            <tr>
+            <tr className="table-tr">
               <DateList data={ stateEdit } />
             </tr>
-            <tr>
+            <tr className="table-tr">
               <CheckList data={ stateEdit } />
             </tr>
           </tbody>

@@ -13,13 +13,14 @@ import { EventContext } from "../App";
 import { DateList } from "../components/ui/DateList";
 
 import "../assets/style/event.scss";
+import "../assets/style/table.scss";
 
 const UserList = (props: any) => {
   let start = Moment(props.data.startDate);
   let end = Moment(props.data.endDate).add("days", 1);
   let list: any = [];
 
-  list.push(<th>{ props.user.name }</th>);
+  list.push(<td className="table-td table-username">{ props.user.name }</td>);
   while(start.format("YYYY-MM-DD") != end.format("YYYY-MM-DD")) {
     let possible_date = props.user.possible.filter((item: any) => {
       return item === start.format("YYYY-MM-DD");
@@ -29,12 +30,12 @@ const UserList = (props: any) => {
     });
     if(!possible_date[0]) {
       if(!subtle_date[0]) {
-        list.push(<td>×</td>);
+        list.push(<td className="table-td">×</td>);
       } else {
-        list.push(<td>△</td>);
+        list.push(<td className="table-td">△</td>);
       }
     } else {
-      list.push(<td>〇</td>);
+      list.push(<td className="table-td">〇</td>);
     }
     start.add('days', 1);
   }
@@ -50,9 +51,6 @@ const Event: React.FC = () => {
   const [eventData, setEventData] = useState<any | null>(null);
   
   useEffect(() => {
-    // 5ef9d12b5606394cf99f404a
-    // 5f005ec0e75af0003168bae3
-    // 5f00657fac7f490031940f8f
     axios.get(`/api/v1/events/${event}`)
     .then((result: any) => {
       const data = result.data;
@@ -109,7 +107,7 @@ const Event: React.FC = () => {
 
       stateEdit.user.map((item: any) => {
         list.push(
-          <tr>
+          <tr className="table-tr">
             <UserList
               user={item}
               data={stateEdit}
@@ -146,10 +144,10 @@ const Event: React.FC = () => {
       <div className="container">
         <div>path : {event}</div>
         <div>event title : {stateEdit.title}</div>
-        <table className="event-table-wrapper">
+        <table className="table-wrapper">
           <tbody>
-          <tr>
-            <th>名前</th>
+          <tr className="table-tr">
+            <th className="none-border"></th>
             <DateList data={stateEdit}/>
           </tr>
           <ListRender />
