@@ -15,6 +15,11 @@ import { DateList } from "../components/ui/DateList";
 import "../assets/style/event.scss";
 import "../assets/style/table.scss";
 
+type MostDateType = {
+  key: Array<string>,
+  value: number
+};
+
 const UserList = (props: any) => {
   let start = Moment(props.data.startDate);
   let end = Moment(props.data.endDate).add("days", 1);
@@ -28,14 +33,31 @@ const UserList = (props: any) => {
     let subtle_date = props.user.subtle.filter((item: any) => {
       return item === start.format("YYYY-MM-DD");
     });
-    if(!possible_date[0]) {
-      if(!subtle_date[0]) {
-        list.push(<td className="table-td">×</td>);
+    console.log(
+      "start.format: ", start.format("YYYY-MM-DD"),
+      "props.key: ", props.most_likely
+    );
+    if(props.most_likely.includes(start.format("YYYY-MM-DD"))) {
+      if(!possible_date[0]) {
+        if(!subtle_date[0]) {
+          list.push(<td className="table-td--most">×</td>);
+        } else {
+          list.push(<td className="table-td--most">△</td>);
+        }
       } else {
-        list.push(<td className="table-td">△</td>);
+        list.push(<td className="table-td--most">〇</td>);
       }
     } else {
-      list.push(<td className="table-td">〇</td>);
+      if(!possible_date[0]) {
+        if(!subtle_date[0]) {
+          list.push(<td className="table-td">×</td>);
+        } else {
+          list.push(<td className="table-td">△</td>);
+        }
+      } else {
+        list.push(<td className="table-td">〇</td>);
+      }
+
     }
     start.add('days', 1);
   }
@@ -45,11 +67,13 @@ const UserList = (props: any) => {
 const Event: React.FC = () => {
   const { stateEdit, dispatch } = useContext(EventContext);
   const [ password, setPassword ] = useState("");
+  // const [ mostLikelyDate, setMostLikelyDate ] = useState<MostDateType>({ key: "", value: 0 });
   const { event } = useParams();
   //contextで認証状態を確認（とりあえず開発中はtureにしてる）
   const [authenticated, setAuthenticated] = useState(false);
   const [eventData, setEventData] = useState<any | null>(null);
-  
+  let mostLikelyDate = "";
+
   useEffect(() => {
     axios.get(`/api/v1/events/${event}`)
     .then((result: any) => {
@@ -83,7 +107,7 @@ const Event: React.FC = () => {
       setAuthenticated(result.data.auth);
     });
   };
-  
+
   const ListRender = () => {
     const list: Array<JSX.Element> = [];
     if(!stateEdit.user) {
@@ -91,7 +115,7 @@ const Event: React.FC = () => {
     } else {
       const start = Moment(stateEdit.startDate);
       const end = Moment(stateEdit.endDate).add("days", 1);
-      const possible_user_list = [];
+      const possible_user_list = new Map();
       while(start.format() != end.format()) {
         let possible_user = 0;
         stateEdit.user.map((user: any) => {
@@ -100,10 +124,28 @@ const Event: React.FC = () => {
             possible_user++;
           }
         });
-        possible_user_list.push(possible_user);
+        possible_user_list.set(start.format("YYYY-MM-DD"), possible_user);
         start.add('days', 1);
       }
+      
+      let state_value = { 
+        key: [Moment(stateEdit.startDate).format("YYYY-MM-DD")],
+        value: possible_user_list.get(
+          Moment(stateEdit.startDate).format("YYYY-MM-DD")
+        ) 
+      };
+      possible_user_list.forEach((value, key) => {
+        if(value > state_value.value) {
+          state_value.key = [];
+          state_value.key.push(key);
+          state_value.value = value;
+        } else if(value == state_value.value) {
+          state_value.key.push(key);
+        }
+      });
       console.log("possible_user_list: ", possible_user_list);
+      console.log("state_value: ", state_value);
+      mostLikelyDate = state_value.key[0];
 
       stateEdit.user.map((item: any) => {
         list.push(
@@ -111,7 +153,8 @@ const Event: React.FC = () => {
             <UserList
               user={item}
               data={stateEdit}
-              />
+              most_likely={ state_value.key }
+            />
           </tr>
         );
       });
