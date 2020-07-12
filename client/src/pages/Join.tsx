@@ -86,7 +86,14 @@ const JoinComponent: React.FC = () => {
   return (
     <UserContext.Provider value={value}>
       <div className="join-wrapper">
-        <input type="text" onChange={changeName} />
+        <div className="join-flex">
+          <div className="join-name">
+            名前
+          </div>
+          <div className="join-input">
+            <input type="text" onChange={changeName} />
+          </div>
+        </div>
         <table className="table-wrapper">
           <tbody>
             <tr className="table-tr">
@@ -98,7 +105,7 @@ const JoinComponent: React.FC = () => {
           </tbody>
         </table>
         <div
-          className="join-button"
+          className="event-button"
           onClick={postData}
           >
           送信

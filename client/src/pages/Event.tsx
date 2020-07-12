@@ -86,6 +86,14 @@ const Event: React.FC = () => {
         }
       });
     });
+
+    if(!!localStorage.getItem(event)) {
+      const localPassword = localStorage.getItem(event);
+      if(typeof(localPassword) == "string") {
+        setPassword(localPassword);
+        setAuthenticated(true);
+      }
+    }
   }, []);
   
   const changePassword = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -94,12 +102,13 @@ const Event: React.FC = () => {
   };
   
   const postPassword = () => {
-    axios.post(`/api/v1/check/${event}`, 
+    axios.post(`/api/v1/check/${event}`,
     { password: password }
     )
     .then((result: any) => {
       console.log(result);
       setAuthenticated(result.data.auth);
+      localStorage.setItem(event, password);
     });
   };
 
@@ -157,8 +166,9 @@ const Event: React.FC = () => {
     }
   };
   
+
   if(!authenticated) {
-    return ( 
+    return (
       <div className="container">
         <div className="event-auth-title">
           イベントパスワード
@@ -180,8 +190,8 @@ const Event: React.FC = () => {
     } else {
     return (
       <div className="container">
-        <div>path : {event}</div>
-        <div>event title : {stateEdit.title}</div>
+        <div>イベント名 : {stateEdit.title}</div>
+        <div>説明 : {stateEdit.description}</div>
         <table className="table-wrapper">
           <tbody>
           <tr className="table-tr">
@@ -196,7 +206,7 @@ const Event: React.FC = () => {
             このイベントに参加
           </Link>
         </div>
-        <div>
+        <div className="event-host">
           （ホストのみ）
         </div>
         <div className="event-button">

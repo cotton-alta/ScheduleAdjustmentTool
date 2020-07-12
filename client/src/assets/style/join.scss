@@ -1,14 +1,30 @@
+@import "./variables.scss";
+
 .join {
   &-wrapper {
 
   }
-  &-button {
-    width: 100px;
-    height: 40px;
-    line-height: 40px;
-    margin: 0 auto;
-    text-align: center;
-    border: solid 1px #000000;
-    cursor: pointer;
+  &-name {
+    line-height: 30px;
+    font-size: calc(15px + 0.3vw);
+    margin: 0px 20px;
+  }
+  &-input {
+    input {
+      height: 30px;
+      line-height: 30px;
+      font-size: calc(15px + 0.3vw);
+    }
+  }
+  &-flex {
+    width: 90%;
+    margin: 30px auto;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    @include mq {
+      flex-direction: row;
+    }
   }
 }
