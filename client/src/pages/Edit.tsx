@@ -9,11 +9,12 @@ import history from "../history";
 import "../assets/style/edit.scss";
 
 const initEvent = {
-  title:       "sample",
-  password:    "password",
-  description: "説明",
-  startDate:   "2020/05/31",
-  endDate:     "2020/05/31"
+  title:        "sample",
+  password:     "password",
+  hsotPassword: "password",
+  description:  "説明",
+  startDate:    "2020/05/31",
+  endDate:      "2020/05/31"
 };
 
 const App: React.FC = () => {
@@ -45,6 +46,15 @@ const App: React.FC = () => {
       }
     });
   };
+
+  const changeHostPassword = (e: React.ChangeEvent<HTMLInputElement>) => {
+    dispatch({
+      type: "checkEvent",
+      payload: {
+        hostPassword: e.target.value
+      }
+    });
+  };
   
   const changeDescription = (e: React.ChangeEvent<HTMLTextAreaElement>) => {
     dispatch({
@@ -61,7 +71,8 @@ const App: React.FC = () => {
       description: stateEdit.description,
       startDate:   startDate,
       endDate:     endDate,
-      password:    stateEdit.password
+      password:    stateEdit.password,
+      hostPassword:    stateEdit.hostPassword
     };
     axios.post('/api/v1/event',
       inputData,
@@ -81,6 +92,8 @@ const App: React.FC = () => {
       <textarea cols={10} value={stateEdit.description} onChange={changeDescription} />
       <span className="edit-title">パスワード</span>
       <input type="text" value={stateEdit.password} onChange={changePassword}/>
+      <span className="edit-title">ホストパスワード</span>
+      <input type="text" value={stateEdit.hostPassword} onChange={changeHostPassword}/>
       <RangeDataPicker 
         startDate={startDate}
         endDate={endDate}

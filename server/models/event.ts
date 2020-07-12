@@ -9,6 +9,7 @@ const mongoose = require("mongoose"),
     startDate: String,
     endDate: String,
     password: String,
+    hostPassword: String,
     user: [{
       name: String,
       possible: [{type: String}],
@@ -20,6 +21,8 @@ const mongoose = require("mongoose"),
 eventSchema.pre("save", async function(this: any, next: NextFunction) {
   let hashed_password = await bcrypt.hashSync(this.password, 10);
   this.password = hashed_password;
+  let hashed_host_password = await bcrypt.hashSync(this.hostPassword, 10);
+  this.hostPassword = hashed_host_password;
   next();
 });
 

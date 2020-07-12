@@ -39,29 +39,36 @@ const CheckList = (props: any) => {
     let date = start.format("YYYY-MM-DD");
     list.push(
       <td className="table-td">
-        <p>
+        <div className="table-radio">
           <input
+            id={`possible_${list.length}`}
             type="radio"
             name={`list_${list.length}`}
             value="possible"
             onChange={(e) => {dateCheck(e, list.length - 1, date)}}
-          />
-            可能
+            />
+          <label htmlFor={`possible_${list.length}`}>可能</label>
+        </div>
+        <div className="table-radio">
           <input
+            id={`subtle_${list.length}`}
             type="radio" 
             name={`list_${list.length}`}
             value="subtle" 
             onChange={(e) => {dateCheck(e, list.length - 1, date)}}
-          />
-            微妙
+            />
+          <label htmlFor={`subtle_${list.length}`}>微妙</label>
+        </div>
+        <div className="table-radio">
           <input 
+            id={`impossible_${list.length}`}
             type="radio" 
             name={`list_${list.length}`} 
             value="impossible" 
             onChange={(e) => {dateCheck(e, list.length - 1, date)}}
           />
-            不可能
-        </p>
+          <label htmlFor={`impossible_${list.length}`}>不可</label>
+        </div>
       </td>
     );
     start.add('days', 1);

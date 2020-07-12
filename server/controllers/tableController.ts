@@ -30,6 +30,7 @@ const createEvent = (req: express.Request, res: express.Response) => {
     startDate: req.body.startDate,
     endDate: req.body.endDate,
     password: req.body.password,
+    hostPassword: req.body.hostPassword,
     user: []
   });
 
