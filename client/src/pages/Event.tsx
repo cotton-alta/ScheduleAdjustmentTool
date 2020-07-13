@@ -190,8 +190,18 @@ const Event: React.FC = () => {
     } else {
     return (
       <div className="container">
-        <div>イベント名 : {stateEdit.title}</div>
-        <div>説明 : {stateEdit.description}</div>
+        <div className="event-title--headline">
+          イベント名
+        </div>
+        <div className="event-title--content">
+          {stateEdit.title}
+        </div>
+        <div className="event-description--headline">
+          説明
+        </div>
+        <div className="event-description--content">
+          {stateEdit.description}
+        </div>
         <table className="table-wrapper">
           <tbody>
           <tr className="table-tr">

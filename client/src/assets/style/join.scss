@@ -2,7 +2,10 @@
 
 .join {
   &-wrapper {
-
+    min-height: calc(100vh - 50px);
+    width: 90%;
+    max-width: 1000px;
+    margin: 0 auto;
   }
   &-name {
     line-height: 30px;
@@ -17,7 +20,7 @@
     }
   }
   &-flex {
-    width: 90%;
+    // width: 90%;
     margin: 30px auto;
     display: flex;
     justify-content: center;
