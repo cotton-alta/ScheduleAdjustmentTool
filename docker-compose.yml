@@ -45,6 +45,6 @@ services:
     volumes:
       - ./server:/server
       # 初回プロジェクトの作成後にコメントアウトを外す
-      # - /server/node_modules
+      - /server/node_modules
     ports:
       - 3333:3333

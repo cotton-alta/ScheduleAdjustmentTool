@@ -4,3 +4,7 @@ ENV LANG C.UTF-8
 ENV TZ Asia/Tokyo
 
 RUN npm install npm -g
+
+RUN npm install typescript -g
+
+RUN npm install ts-node -g
