@@ -1,4 +1,4 @@
-import React, { useState, useReducer } from "react";
+import React, { useState, useReducer, useEffect } from "react";
 import RangeDataPicker from "../components/ui/calendar";
 import axios from "axios";
 import Moment from "moment";
@@ -11,13 +11,13 @@ import "../assets/style/edit.scss";
 const initEvent = {
   title:        "sample",
   password:     "password",
-  hsotPassword: "password",
+  hostPassword: "password",
   description:  "説明",
   startDate:    "2020/05/31",
   endDate:      "2020/05/31"
 };
 
-const App: React.FC = () => {
+const EditComponent: React.FC = () => {
   const [ stateEdit, dispatch ] = useReducer(eventAction, initEvent);
   const initDate = Moment();
   const [startDate, setStartDate]: [
@@ -28,6 +28,10 @@ const App: React.FC = () => {
           string,
           React.Dispatch<React.SetStateAction<string>>
         ] = useState<string>(initDate.add("days", 3).format());
+
+  // useEffect(() => {
+
+  // }, [stateEdit.hostPassword]);
 
   const changeTitle = (e: React.ChangeEvent<HTMLInputElement>) => {
     dispatch({
@@ -55,7 +59,7 @@ const App: React.FC = () => {
       }
     });
   };
-  
+
   const changeDescription = (e: React.ChangeEvent<HTMLTextAreaElement>) => {
     dispatch({
       type: "checkEvent",
@@ -105,4 +109,8 @@ const App: React.FC = () => {
   );
 };
 
-export default withRouter(App);
+const Edit = withRouter(EditComponent);
+
+export {
+  Edit
+};

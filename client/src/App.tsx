@@ -4,7 +4,7 @@ import { Router, Route } from "react-router-dom";
 import { eventAction } from "./actions/event";
 
 import Main from "./pages/Main";
-import Edit from "./pages/Edit";
+import { Edit } from "./pages/Edit";
 import Event from "./pages/Event";
 import Header from "./components/layouts/header";
 import { Join } from "./pages/Join";
@@ -22,6 +22,7 @@ const EventContext = React.createContext<any>(null);
 const initEvent = {
   title: "sample",
   password: "password",
+  hostPassword: "password",
   description: "説明",
   startDate: "2020/05/31",
   endDate: "2020/05/31"
