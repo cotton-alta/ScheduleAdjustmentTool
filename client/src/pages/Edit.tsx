@@ -29,10 +29,6 @@ const EditComponent: React.FC = () => {
           React.Dispatch<React.SetStateAction<string>>
         ] = useState<string>(initDate.add("days", 3).format());
 
-  // useEffect(() => {
-
-  // }, [stateEdit.hostPassword]);
-
   const changeTitle = (e: React.ChangeEvent<HTMLInputElement>) => {
     dispatch({
       type: "checkEvent",

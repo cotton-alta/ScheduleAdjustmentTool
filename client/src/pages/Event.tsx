@@ -1,11 +1,4 @@
-import
-  React, 
-  {
-    useState,
-    useEffect,
-    useContext, 
-    Fragment
-  } from "react";
+import React, { useState, useEffect, useContext, Fragment } from "react";
 import { useParams, Link } from "react-router-dom";
 import axios from "axios";
 import Moment from "moment";
@@ -16,20 +9,35 @@ import { UserList } from "../components/ui/UserList";
 import "../assets/style/event.scss";
 import "../assets/style/table.scss";
 
+interface AuthResponse {
+  auth: boolean
+}
+
+interface Event {
+  title: string
+  description: string
+  startDate: string
+  endDate: string
+  password: string
+  check: string
+  user: Array<User>
+}
+
+interface User {
+
+}
+
 const Event: React.FC = () => {
   const { stateEdit, dispatch } = useContext(EventContext);
   const [ password, setPassword ] = useState("");
-  // const [ mostLikelyDate, setMostLikelyDate ] = useState<MostDateType>({ key: "", value: 0 });
-  const { event } = useParams();
-  //contextで認証状態を確認（とりあえず開発中はtureにしてる）
   const [authenticated, setAuthenticated] = useState(false);
-  const [eventData, setEventData] = useState<any | null>(null);
-  let mostLikelyDate = "";
+  const [eventData, setEventData] = useState<Event | null>(null);
+  const { event } = useParams();
 
   useEffect(() => {
     axios.get(`/api/v1/events/${event}`)
-    .then((result: any) => {
-      const data = result.data;
+    .then(res => {
+      const data = res.data;
       setEventData(data.title);
       dispatch({
         type: "checkEvent",
@@ -46,7 +54,7 @@ const Event: React.FC = () => {
 
     if(!!localStorage.getItem(event)) {
       const localPassword = localStorage.getItem(event);
-      if(typeof(localPassword) == "string") {
+      if(typeof(localPassword) === "string") {
         setPassword(localPassword);
         setAuthenticated(true);
       }
@@ -55,16 +63,14 @@ const Event: React.FC = () => {
   
   const changePassword = (e: React.ChangeEvent<HTMLInputElement>) => {
     setPassword(e.target.value);
-    console.log(password);
   };
   
   const postPassword = () => {
-    axios.post(`/api/v1/check/${event}`,
-    { password: password }
+    axios.post<AuthResponse>(`/api/v1/check/${event}`,
+      { password: password }
     )
-    .then((result: any) => {
-      console.log(result);
-      setAuthenticated(result.data.auth);
+    .then(res => {
+      setAuthenticated(res.data.auth);
       localStorage.setItem(event, password);
     });
   };
@@ -80,9 +86,12 @@ const Event: React.FC = () => {
       while(start.format() != end.format()) {
         let possible_user = 0;
         stateEdit.user.map((user: any) => {
-          let jadge = user.possible.some((date: string) => date == start.format("YYYY-MM-DD"))
-          if(jadge) {
+          const jadge_possible = user.possible.some((date: string) => date == start.format("YYYY-MM-DD"));
+          const jadge_subtle = user.subtle.some((date: string) => date == start.format("YYYY-MM-DD"));
+          if(jadge_possible) {
             possible_user++;
+          } else if(jadge_subtle) {
+            possible_user += 0.5;
           }
         });
         possible_user_list.set(start.format("YYYY-MM-DD"), possible_user);
@@ -104,9 +113,6 @@ const Event: React.FC = () => {
           state_value.key.push(key);
         }
       });
-      console.log("possible_user_list: ", possible_user_list);
-      console.log("state_value: ", state_value);
-      mostLikelyDate = state_value.key[0];
 
       stateEdit.user.map((item: any) => {
         list.push(
@@ -122,7 +128,6 @@ const Event: React.FC = () => {
       return (<Fragment>{ list }</Fragment>);
     }
   };
-  
 
   if(!authenticated) {
     return (
@@ -134,17 +139,17 @@ const Event: React.FC = () => {
           <input 
             type="text"
             onChange={changePassword} 
-            />
+          />
         </div>
         <div 
           className="event-button"
           onClick={postPassword}  
-          >
+        >
           送信
         </div>
       </div>
-      );
-    } else {
+    );
+  } else {
     return (
       <div className="container">
         <div className="event-title--headline">

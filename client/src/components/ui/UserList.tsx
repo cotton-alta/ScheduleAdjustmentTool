@@ -16,10 +16,10 @@ const UserList = (props: any) => {
     let subtle_date = props.user.subtle.filter((item: any) => {
       return item === start.format("YYYY-MM-DD");
     });
-    console.log(
-      "start.format: ", start.format("YYYY-MM-DD"),
-      "props.key: ", props.most_likely
-    );
+    // console.log(
+    //   "start.format: ", start.format("YYYY-MM-DD"),
+    //   "props.key: ", props.most_likely
+    // );
     if(props.most_likely.includes(start.format("YYYY-MM-DD"))) {
       if(!possible_date[0]) {
         if(!subtle_date[0]) {
