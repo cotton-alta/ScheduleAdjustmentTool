@@ -1,4 +1,4 @@
-import React, { useState, useReducer, useEffect } from "react";
+import React, { useState, useReducer } from "react";
 import RangeDataPicker from "../components/ui/calendar";
 import axios from "axios";
 import Moment from "moment";

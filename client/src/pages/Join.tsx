@@ -1,10 +1,4 @@
-import 
-  React,
-  { 
-    useEffect,
-    useReducer,
-    useContext
-  } from "react";
+import React, { useEffect, useReducer, useContext } from "react";
 import { useParams } from "react-router-dom";
 import axios from "axios";
 import Moment from "moment";
@@ -29,7 +23,7 @@ const initUser: User = {
   possible: [],
   subtle: [],
   impossible: []
-}
+};
 
 const UserContext = React.createContext<any>(null);
 
@@ -38,6 +32,7 @@ const JoinComponent: React.FC = () => {
   const { event } = useParams();
   const [ stateUser, userDispatch ] = useReducer(userAction, initUser);
   const value = { stateUser, userDispatch };
+
   useEffect(() => {
     const start = Moment(stateEdit.startDate);
     const end = Moment(stateEdit.endDate);
@@ -49,7 +44,6 @@ const JoinComponent: React.FC = () => {
       start.add('days', 1);
     }
     initUser.impossible.push(start.format("YYYY-MM-DD"));
-    console.log(initUser.impossible);
     userDispatch({
       type: "dateInit",
       payload: {
@@ -69,9 +63,9 @@ const JoinComponent: React.FC = () => {
       }
     });
     axios.post(`/api/v1/events/${event}`, stateEdit.user)
-      .then((result: any) => {
-        history.push(`/event/${result.data._id}`);
-      });
+    .then((result: any) => {
+      history.push(`/event/${result.data._id}`);
+    });
   };
 
   const changeName = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -85,7 +79,7 @@ const JoinComponent: React.FC = () => {
 
   return (
     <UserContext.Provider value={value}>
-      <div className="join-wrapper">
+      <div className="container">
         <div className="join-flex">
           <div className="join-name">
             名前

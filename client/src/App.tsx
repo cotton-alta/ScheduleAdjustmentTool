@@ -1,8 +1,6 @@
 import React, { useReducer } from "react";
 import { Router, Route } from "react-router-dom";
-// import { EditContextProvider } from "./pages/Edit";
 import { eventAction } from "./actions/event";
-
 import Main from "./pages/Main";
 import { Edit } from "./pages/Edit";
 import Event from "./pages/Event";
@@ -11,11 +9,11 @@ import { Join } from "./pages/Join";
 import CreateResult from "./pages/CreateResult";
 import history from "./history";
 import { DateDecision } from "./pages/DateDecision";
+import axios from "axios";
 
 import "./assets/style/reset.scss";
 import "./assets/style/variables.scss";
 
-import axios from "axios";
 axios.defaults.baseURL = "http://localhost:3333";
 
 const EventContext = React.createContext<any>(null);

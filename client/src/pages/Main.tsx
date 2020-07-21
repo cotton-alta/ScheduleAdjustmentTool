@@ -5,7 +5,7 @@ import "../assets/style/main.scss";
 
 const App: React.FC = () => {
   return (
-    <div className="main-wrapper">
+    <div className="container">
       <img 
         className="main-img"
         src={`${process.env.PUBLIC_URL}top.png`} 

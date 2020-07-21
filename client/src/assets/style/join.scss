@@ -1,12 +1,6 @@
 @import "./variables.scss";
 
 .join {
-  &-wrapper {
-    min-height: calc(100vh - 50px);
-    width: 90%;
-    max-width: 1000px;
-    margin: 0 auto;
-  }
   &-name {
     line-height: 30px;
     font-size: calc(15px + 0.3vw);
