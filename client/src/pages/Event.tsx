@@ -83,7 +83,7 @@ const Event: React.FC = () => {
       const start = Moment(stateEdit.startDate);
       const end = Moment(stateEdit.endDate).add("days", 1);
       const possible_user_list = new Map();
-      while(start.format() != end.format()) {
+      while(start.format() !== end.format()) {
         let possible_user = 0;
         stateEdit.user.map((user: any) => {
           const jadge_possible = user.possible.some((date: string) => date == start.format("YYYY-MM-DD"));

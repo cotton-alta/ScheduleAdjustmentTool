@@ -7,7 +7,7 @@ const DateList = (props: any) => {
   const start = Moment(props.data.startDate);
   const end = Moment(props.data.endDate);
   const list = [];
-  while(start.format() != end.format()) {
+  while(start.format() !== end.format()) {
     list.push(<th className="table-th">{ start.format("MM/DD") }</th>);
     start.add('days', 1);
   }

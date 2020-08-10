@@ -1,4 +1,4 @@
-import React, { useState, useEffect, Fragment } from "react";
+import React from "react";
 
 import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
@@ -11,7 +11,7 @@ type DateType = {
   endDate: string
   setStartDate: React.Dispatch<React.SetStateAction<string>>
   setEndDate: React.Dispatch<React.SetStateAction<string>>
-}
+};
 
 const RangeDataPicker: React.FC<DateType> = (props: DateType) => {
   const handleDateStart = (selectedDate: Date) => {
