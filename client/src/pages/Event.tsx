@@ -27,8 +27,8 @@ interface User {}
 const Event: React.FC = () => {
   const { stateEdit, dispatch } = useContext(EventContext);
   const [ password, setPassword ] = useState("");
-  const [authenticated, setAuthenticated] = useState(false);
-  const [eventData, setEventData] = useState<Event | null>(null);
+  const [ authenticated, setAuthenticated ] = useState(false);
+  const [ eventData, setEventData ] = useState<Event | null>(null);
   const { event } = useParams();
 
   useEffect(() => {

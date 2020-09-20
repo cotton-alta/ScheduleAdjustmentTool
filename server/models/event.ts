@@ -4,24 +4,24 @@ import bcrypt from "bcrypt";
 const mongoose = require("mongoose"),
   { Schema } = mongoose,
   eventSchema = new Schema({
-    title: String,
-    description: String,
-    startDate: String,
-    endDate: String,
-    password: String,
+    title:        String,
+    description:  String,
+    startDate:    String,
+    endDate:      String,
+    password:     String,
     hostPassword: String,
     user: [{
-      name: String,
-      possible: [{type: String}],
-      subtle: [{type: String}],
+      name:       String,
+      possible:   [{type: String}],
+      subtle:     [{type: String}],
       impossible: [{type: String}]
     }]
   });
 
 eventSchema.pre("save", async function(this: any, next: NextFunction) {
-  let hashed_password = await bcrypt.hashSync(this.password, 10);
+  const hashed_password = await bcrypt.hashSync(this.password, 10);
   this.password = hashed_password;
-  let hashed_host_password = await bcrypt.hashSync(this.hostPassword, 10);
+  const hashed_host_password = await bcrypt.hashSync(this.hostPassword, 10);
   this.hostPassword = hashed_host_password;
   next();
 });

@@ -1,10 +1,9 @@
 import React, { 
   useState, 
-  useContext, 
-  Fragment, 
+  useContext,
   useEffect
 } from "react";
-import { useParams, Link } from "react-router-dom";
+import { useParams } from "react-router-dom";
 import { DateList } from "../components/ui/DateList";
 import { EventContext } from "../App";
 import { ListRender } from "../components/ui/ListRender";
@@ -14,7 +13,7 @@ const DateDecision: React.FC = () => {
   const [ authenticated, setAuthenticated ] = useState(false);
   const { stateEdit, dispatch } = useContext(EventContext);
   const [ password, setPassword ] = useState("");
-  const [eventData, setEventData] = useState<Event | null>(null);
+  const [ eventData, setEventData ] = useState<Event | null>(null);
   const { event } = useParams();
 
   useEffect(() => {

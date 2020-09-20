@@ -14,10 +14,8 @@ const checkPassword = (req: express.Request, res: express.Response) => {
 
 const getEvent = (req: express.Request, res: express.Response) => {
   console.log(req.params.event);
-  // Event.findById(req.params.event)
   Event.findById(req.params.event)
   .then((result: any) => {
-    console.log(result);
     res.send(result);
   })
 };
@@ -25,13 +23,13 @@ const getEvent = (req: express.Request, res: express.Response) => {
 const createEvent = (req: express.Request, res: express.Response) => {
   console.log(req.body);
   let newEvent = new Event({
-    title: req.body.title,
-    description: req.body.description,
-    startDate: req.body.startDate,
-    endDate: req.body.endDate,
-    password: req.body.password,
+    title:        req.body.title,
+    description:  req.body.description,
+    startDate:    req.body.startDate,
+    endDate:      req.body.endDate,
+    password:     req.body.password,
     hostPassword: req.body.hostPassword,
-    user: []
+    user:         []
   });
 
   newEvent.save((err: any) => {
@@ -50,14 +48,16 @@ const joinEvent = (req: express.Request, res: express.Response) => {
     { user: req.body }
   )
   .then((result: any) => {
-    // console.log(result);
     res.send(result);
   });
 };
+
+const decisionEvent = (req: express.Request, res: express.Response) => {};
 
 export {
   checkPassword,
   getEvent,
   createEvent,
-  joinEvent
+  joinEvent,
+  decisionEvent
 }
