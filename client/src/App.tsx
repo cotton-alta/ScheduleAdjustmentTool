@@ -1,14 +1,14 @@
 import React, { useReducer } from "react";
 import { Router, Route } from "react-router-dom";
 import { eventAction } from "./actions/event";
+import Header from "./components/layouts/header";
 import Main from "./pages/Main";
 import { Edit } from "./pages/Edit";
 import Event from "./pages/Event";
-import Header from "./components/layouts/header";
 import { Join } from "./pages/Join";
 import CreateResult from "./pages/CreateResult";
-import history from "./history";
 import { DateDecision } from "./pages/DateDecision";
+import history from "./history";
 import axios from "axios";
 
 import "./assets/style/reset.scss";
