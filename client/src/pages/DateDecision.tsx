@@ -7,6 +7,7 @@ import { useParams } from "react-router-dom";
 import { DateList } from "../components/ui/DateList";
 import { EventContext } from "../App";
 import { ListRender } from "../components/ui/ListRender";
+import { DecisionList } from "../components/ui/DecisionList";
 import axios from "axios";
 
 const DateDecision: React.FC = () => {
@@ -58,6 +59,10 @@ const DateDecision: React.FC = () => {
             <DateList data={stateEdit}/>
           </tr>
           <ListRender stateEdit={stateEdit}/>
+          <DecisionList 
+            start={stateEdit.startDate} 
+            end={stateEdit.endDate}
+          />
           </tbody>
         </table>
       </div>
