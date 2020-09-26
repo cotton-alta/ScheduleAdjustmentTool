@@ -12,17 +12,14 @@ const CheckList = (props: any) => {
   const end = Moment(props.data.endDate).add("days", 1);
   const list = [];
 
-  const dateCheck = (e: React.ChangeEvent<HTMLInputElement>, index: number, date: string) => {
+  const dateCheck = (e: React.ChangeEvent<HTMLInputElement>, date: string) => {
     const participation = e.target.value;
-    let updateUser: UpdateUserProperty = {
-      possible: [],
-      subtle: [],
-      impossible: []
-    };
 
-    updateUser.possible = stateUser.possible.filter((item: string) => { return item != date });
-    updateUser.subtle = stateUser.subtle.filter((item: string) => { return item != date });
-    updateUser.impossible = stateUser.impossible.filter((item: string) => { return item != date });
+    let updateUser: UpdateUserProperty = {
+      possible: stateUser.possible.filter((item: string) => { return item != date }),
+      subtle: stateUser.subtle.filter((item: string) => { return item != date }),
+      impossible: stateUser.impossible.filter((item: string) => { return item != date })
+    };
     updateUser[participation].push(date);
     
     userDispatch({
@@ -45,7 +42,7 @@ const CheckList = (props: any) => {
             type="radio"
             name={`list_${list.length}`}
             value="possible"
-            onChange={(e) => {dateCheck(e, list.length - 1, date)}}
+            onChange={(e) => {dateCheck(e, date)}}
             />
           <label htmlFor={`possible_${list.length}`}>可能</label>
         </div>
@@ -55,7 +52,7 @@ const CheckList = (props: any) => {
             type="radio" 
             name={`list_${list.length}`}
             value="subtle" 
-            onChange={(e) => {dateCheck(e, list.length - 1, date)}}
+            onChange={(e) => {dateCheck(e, date)}}
             />
           <label htmlFor={`subtle_${list.length}`}>微妙</label>
         </div>
@@ -65,7 +62,7 @@ const CheckList = (props: any) => {
             type="radio" 
             name={`list_${list.length}`} 
             value="impossible" 
-            onChange={(e) => {dateCheck(e, list.length - 1, date)}}
+            onChange={(e) => {dateCheck(e, date)}}
           />
           <label htmlFor={`impossible_${list.length}`}>不可</label>
         </div>

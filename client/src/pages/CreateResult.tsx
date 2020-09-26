@@ -1,12 +1,12 @@
 import React from "react";
 import { useParams, Link } from "react-router-dom";
 import { withRouter } from "react-router";
-import history from "../history";
+// import history from "../history";
 
 import "../assets/style/result.scss";
 
 const CreateResult: React.FC = () => {
-  const { event } = useParams();
+  const { event } = useParams<any>();
   const url = "localhost:3000/event/" + event;
 
   const pasteURL = () => {

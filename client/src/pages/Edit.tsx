@@ -1,5 +1,5 @@
 import React, { useState, useReducer } from "react";
-import RangeDataPicker from "../components/ui/calendar";
+import RangeDataPicker from "../components/ui/Calendar";
 import axios from "axios";
 import Moment from "moment";
 import { eventAction } from "../actions/event";

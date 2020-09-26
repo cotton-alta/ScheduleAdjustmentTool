@@ -13,15 +13,12 @@ import axios from "axios";
 const DateDecision: React.FC = () => {
   const [ authenticated, setAuthenticated ] = useState(false);
   const { stateEdit, dispatch } = useContext(EventContext);
-  const [ password, setPassword ] = useState("");
-  const [ eventData, setEventData ] = useState<Event | null>(null);
-  const { event } = useParams();
+  const { event } = useParams<any>();
 
   useEffect(() => {
     axios.get(`/api/v1/events/${event}`)
     .then(res => {
       const data = res.data;
-      setEventData(data.title);
       dispatch({
         type: "checkEvent",
         payload: {
@@ -38,7 +35,6 @@ const DateDecision: React.FC = () => {
     if(!!localStorage.getItem(event)) {
       const localPassword = localStorage.getItem(event);
       if(typeof(localPassword) === "string") {
-        setPassword(localPassword);
         setAuthenticated(true);
       }
     }
@@ -60,8 +56,7 @@ const DateDecision: React.FC = () => {
           </tr>
           <ListRender stateEdit={stateEdit}/>
           <DecisionList 
-            start={stateEdit.startDate} 
-            end={stateEdit.endDate}
+            data={stateEdit}
           />
           </tbody>
         </table>
