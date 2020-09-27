@@ -9,11 +9,19 @@ import { EventContext } from "../App";
 import { ListRender } from "../components/ui/ListRender";
 import { DecisionList } from "../components/ui/DecisionList";
 import axios from "axios";
+import history from "../history";
 
 const DateDecision: React.FC = () => {
   const [ authenticated, setAuthenticated ] = useState(false);
   const { stateEdit, dispatch } = useContext(EventContext);
   const { event } = useParams<any>();
+
+  const postDate = () => {
+    axios.post(`/api/v1/events/${event}/decision`, stateEdit)
+    .then(result => {
+      // history.push(`/event/${result.data._id}`);
+    });
+  };
 
   useEffect(() => {
     axios.get(`/api/v1/events/${event}`)
@@ -60,6 +68,12 @@ const DateDecision: React.FC = () => {
           />
           </tbody>
         </table>
+        <div 
+          className="event-button"
+          onClick={postDate}
+        >
+          決定
+        </div>
       </div>
     );
   }

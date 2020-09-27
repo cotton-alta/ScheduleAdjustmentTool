@@ -29,7 +29,7 @@ const Event: React.FC = () => {
   const [ password, setPassword ] = useState("");
   const [ authenticated, setAuthenticated ] = useState(false);
   const [ eventData, setEventData ] = useState<Event | null>(null);
-  const { event } = useParams();
+  const { event } = useParams<any>();
 
   useEffect(() => {
     axios.get(`/api/v1/events/${event}`)

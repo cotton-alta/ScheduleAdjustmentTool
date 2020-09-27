@@ -52,7 +52,10 @@ const joinEvent = (req: express.Request, res: express.Response) => {
   });
 };
 
-const decisionEvent = (req: express.Request, res: express.Response) => {};
+const decisionEvent = (req: express.Request, res: express.Response) => {
+  console.log(`${req.params.event} is decision`);
+  res.send("decision");
+};
 
 export {
   checkPassword,

@@ -29,7 +29,7 @@ const UserContext = React.createContext<any>(null);
 
 const JoinComponent: React.FC = () => {
   const { stateEdit, dispatch } = useContext(EventContext);
-  const { event } = useParams();
+  const { event } = useParams<any>();
   const [ stateUser, userDispatch ] = useReducer(userAction, initUser);
   const value = { stateUser, userDispatch };
 
