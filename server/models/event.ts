@@ -15,7 +15,11 @@ const mongoose = require("mongoose"),
       possible:   [{type: String}],
       subtle:     [{type: String}],
       impossible: [{type: String}]
-    }]
+    }],
+    decisionDate: {
+      judge: Boolean,
+      date: String
+    }
   });
 
 eventSchema.pre("save", async function(this: any, next: NextFunction) {

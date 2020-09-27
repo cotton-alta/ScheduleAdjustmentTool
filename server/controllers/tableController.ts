@@ -29,7 +29,11 @@ const createEvent = (req: express.Request, res: express.Response) => {
     endDate:      req.body.endDate,
     password:     req.body.password,
     hostPassword: req.body.hostPassword,
-    user:         []
+    user:         [],
+    decisionDate: {
+      judge: false,
+      date: ""
+    }
   });
 
   newEvent.save((err: any) => {
