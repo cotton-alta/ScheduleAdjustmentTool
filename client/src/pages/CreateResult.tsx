@@ -8,7 +8,6 @@ import "../assets/style/result.scss";
 const CreateResult: React.FC = () => {
   const { event } = useParams<any>();
   const url = "localhost:3000/event/" + event;
-
   const pasteURL = () => {
     navigator.clipboard
       .writeText(url)

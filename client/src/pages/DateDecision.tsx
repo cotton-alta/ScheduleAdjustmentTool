@@ -17,9 +17,12 @@ const DateDecision: React.FC = () => {
   const { event } = useParams<any>();
 
   const postDate = () => {
-    axios.post(`/api/v1/events/${event}/decision`, stateEdit)
+    axios.post(
+      `/api/v1/events/${event}/decision`, 
+      { "date": stateEdit.decisionDate.date }
+    )
     .then(result => {
-      // history.push(`/event/${result.data._id}`);
+      history.push(`/event/${event}`);
     });
   };
 
@@ -35,7 +38,11 @@ const DateDecision: React.FC = () => {
           startDate:   data.startDate,
           endDate:     data.endDate,
           password:    data.password,
-          user:        data.user
+          user:        data.user,
+          decisionDate: {
+            judge: data.decisionDate.judge,
+            date: data.decisionDate.date
+          }
         }
       });
     });

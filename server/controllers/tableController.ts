@@ -58,6 +58,19 @@ const joinEvent = (req: express.Request, res: express.Response) => {
 
 const decisionEvent = (req: express.Request, res: express.Response) => {
   console.log(`${req.params.event} is decision`);
+  console.log(req.body)
+  Event.findOneAndUpdate(
+    { _id: req.params.event },
+    { $set: { 
+      decisionDate: {
+        judge: true,
+        date: req.body.date
+      }
+    }}
+  )
+  .then((result: any) => {
+    console.log(result)
+  })
   res.send("decision");
 };
 

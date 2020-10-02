@@ -1,15 +1,25 @@
-import React, { Fragment } from "react";
+import React, { Fragment, useContext } from "react";
 import Moment from "moment";
+import { EventContext } from "../../App";
 
 const DecisionList = (props: any) => {
   const start = Moment(props.data.startDate);
   const end = Moment(props.data.endDate).add("days", 1);
+  const { stateEdit, dispatch } = useContext(EventContext);
   const list = [];
   list.push(<td className="table-td"></td>);
 
-  const dateCheck = (e: React.ChangeEvent<HTMLInputElement>, date: string) => {
-
-  };
+  function dateCheck(e: React.ChangeEvent<HTMLInputElement>) {
+    dispatch({
+      type: "setDecisionDate",
+      payload: {
+        decisionDate: {
+          judge: false,
+          date: e.target.value
+        }
+      }
+    });
+  }
 
   while(start.format("YYYY-MM-DD") != end.format("YYYY-MM-DD")) {
     let date = start.format("YYYY-MM-DD");
@@ -21,7 +31,7 @@ const DecisionList = (props: any) => {
             type="radio"
             name="decision"
             value={ date }
-            onChange={(e) => {dateCheck(e, date)}}
+            onChange={dateCheck}
           />
         </div>
       </td>

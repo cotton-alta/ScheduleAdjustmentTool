@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useContext, Fragment } from "react";
+import React, { useState, useEffect, useContext } from "react";
 import { useParams, Link } from "react-router-dom";
 import axios from "axios";
 import { EventContext } from "../App";
@@ -20,6 +20,10 @@ interface Event {
   password: string
   check: string
   user: Array<User>
+  decision: {
+    judge: boolean
+    dete: string
+  }
 }
 
 interface User {}
@@ -35,6 +39,7 @@ const Event: React.FC = () => {
     axios.get(`/api/v1/events/${event}`)
     .then(res => {
       const data = res.data;
+      console.log("data: ", data)
       setEventData(data.title);
       dispatch({
         type: "checkEvent",
@@ -44,7 +49,11 @@ const Event: React.FC = () => {
           startDate:   data.startDate,
           endDate:     data.endDate,
           password:    data.password,
-          user:        data.user
+          user:        data.user,
+          decisionDate: {
+            judge: data.decisionDate.judge,
+            date: data.decisionDate.date
+          }
         }
       });
     });

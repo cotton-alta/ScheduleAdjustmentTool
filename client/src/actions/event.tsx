@@ -5,6 +5,8 @@ const eventAction = (state: any, action: any) => {
     case "setUser":
       state.user.push(action.payload.stateUser);
       return state;
+    case "setDecisionDate":
+      return { ...state, ...action.payload };
     default:
       return state;
   }
