@@ -20,7 +20,7 @@ interface Event {
   password: string
   check: string
   user: Array<User>
-  decision: {
+  decisionDate: {
     judge: boolean
     dete: string
   }
@@ -101,6 +101,15 @@ const Event: React.FC = () => {
         </div>
       </div>
     );
+  } else if( stateEdit !== null && stateEdit.decisionDate.judge == true) {
+    return (
+      <div className="container">
+        <div className="decision-title">{ stateEdit.title }</div>
+        <div className="decision-content">
+          このイベントの開催日時は{ stateEdit.decisionDate.date }に決定しました！
+        </div>
+      </div>
+    )
   } else {
     return (
       <div className="container">

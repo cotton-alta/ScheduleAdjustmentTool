@@ -23,7 +23,11 @@ const initEvent = {
   hostPassword: "password",
   description: "説明",
   startDate: "2020/05/31",
-  endDate: "2020/05/31"
+  endDate: "2020/05/31",
+  decisionDate: {
+    judge: false,
+    date: ""
+  }
 };
 
 const App: React.FC = () => {
