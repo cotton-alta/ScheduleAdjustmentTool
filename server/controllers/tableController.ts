@@ -12,6 +12,16 @@ const checkPassword = (req: express.Request, res: express.Response) => {
   });
 };
 
+const checkHostPassword = (req: express.Request, res: express.Response) => {
+  console.log(req.params.event);
+  console.log(req.body);
+  Event.findById(req.params.event)
+  .then((result: any) => {
+    let auth = bcrypt.compareSync(req.body.hostPassword, result.hostPassword);
+    res.send({ auth });
+  });
+};
+
 const getEvent = (req: express.Request, res: express.Response) => {
   console.log(req.params.event);
   Event.findById(req.params.event)
@@ -76,6 +86,7 @@ const decisionEvent = (req: express.Request, res: express.Response) => {
 
 export {
   checkPassword,
+  checkHostPassword,
   getEvent,
   createEvent,
   joinEvent,

@@ -32,7 +32,7 @@ const Event: React.FC = () => {
   const { stateEdit, dispatch } = useContext(EventContext);
   const [ password, setPassword ] = useState("");
   const [ authenticated, setAuthenticated ] = useState(false);
-  const [ eventData, setEventData ] = useState<Event | null>(null);
+  // const [ eventData, setEventData ] = useState<Event | null>(null);
   const { event } = useParams<any>();
 
   useEffect(() => {
@@ -40,7 +40,7 @@ const Event: React.FC = () => {
     .then(res => {
       const data = res.data;
       console.log("data: ", data)
-      setEventData(data.title);
+      // setEventData(data.title);
       dispatch({
         type: "checkEvent",
         payload: {

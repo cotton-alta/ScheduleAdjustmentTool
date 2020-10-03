@@ -32,6 +32,7 @@ router.get('/api/v1/events/:event', TableController.getEvent);
 router.post('/api/v1/events/:event', TableController.joinEvent);
 router.post('/api/v1/events/:event/decision', TableController.decisionEvent);
 router.post('/api/v1/check/:event', TableController.checkPassword);
+router.post('/api/v1/check_host/:event', TableController.checkHostPassword);
 router.post('/api/v1/event', TableController.createEvent);
 app.use(router);
 

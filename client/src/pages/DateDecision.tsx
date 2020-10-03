@@ -11,8 +11,14 @@ import { DecisionList } from "../components/ui/DecisionList";
 import axios from "axios";
 import history from "../history";
 
+interface AuthResponse {
+  auth: boolean
+}
+
 const DateDecision: React.FC = () => {
   const [ authenticated, setAuthenticated ] = useState(false);
+  const [ hostAuthenticated, setHostAuthenticated ] = useState(false);
+  const [ hostPassword, setHostPassword ] = useState("");
   const { stateEdit, dispatch } = useContext(EventContext);
   const { event } = useParams<any>();
 
@@ -47,17 +53,46 @@ const DateDecision: React.FC = () => {
       });
     });
 
-    if(!!localStorage.getItem(event)) {
-      const localPassword = localStorage.getItem(event);
-      if(typeof(localPassword) === "string") {
-        setAuthenticated(true);
+    if(!!localStorage.getItem(event + "_host")) {
+      const localHostPassword = localStorage.getItem(event + "_host");
+      if(typeof(localHostPassword) === "string") {
+        setHostAuthenticated(true);
       }
     }
   }, []);
 
-  if(!authenticated) {
+  const changeHostPassword = (e: React.ChangeEvent<HTMLInputElement>) => {
+    setHostPassword(e.target.value);
+  };
+
+  const postHostPassword = () => {
+    axios.post<AuthResponse>(`/api/v1/check_host/${event}`,
+      { hostPassword: hostPassword }
+    )
+    .then(res => {
+      setHostAuthenticated(res.data.auth)
+      localStorage.setItem(event + "_host", hostPassword);
+    });
+  };
+
+  if(!hostAuthenticated) {
     return (
       <div className="container">
+        <div className="event-auth-title">
+          ホストパスワード
+        </div>
+        <div className="event-auth-form">
+          <input 
+            type="text"
+            onChange={changeHostPassword} 
+          />
+        </div>
+        <div 
+          className="event-button"
+          onClick={postHostPassword}  
+        >
+          送信
+        </div>
       </div>
     );
   } else {
