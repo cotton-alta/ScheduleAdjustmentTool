@@ -16,7 +16,6 @@ interface AuthResponse {
 }
 
 const DateDecision: React.FC = () => {
-  const [ authenticated, setAuthenticated ] = useState(false);
   const [ hostAuthenticated, setHostAuthenticated ] = useState(false);
   const [ hostPassword, setHostPassword ] = useState("");
   const { stateEdit, dispatch } = useContext(EventContext);
@@ -27,7 +26,7 @@ const DateDecision: React.FC = () => {
       `/api/v1/events/${event}/decision`, 
       { "date": stateEdit.decisionDate.date }
     )
-    .then(result => {
+    .then(() => {
       history.push(`/event/${event}`);
     });
   };

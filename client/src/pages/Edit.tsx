@@ -1,4 +1,4 @@
-import React, { useState, useReducer } from "react";
+import React, { useState, useReducer } from 'react';
 import RangeDataPicker from "../components/ui/Calendar";
 import axios from "axios";
 import Moment from "moment";
@@ -94,12 +94,12 @@ const EditComponent: React.FC = () => {
       <input type="text" value={stateEdit.password} onChange={changePassword}/>
       <span className="edit-title">ホストパスワード</span>
       <input type="text" value={stateEdit.hostPassword} onChange={changeHostPassword}/>
-      <RangeDataPicker 
+      <RangeDataPicker
         startDate={startDate}
         endDate={endDate}
         setStartDate={setStartDate}
         setEndDate={setEndDate}
-        />
+      />
       <div className="edit-button" onClick={postData}>確認</div>
     </div>
   );
