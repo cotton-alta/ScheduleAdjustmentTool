@@ -8,6 +8,7 @@ import Event from "./pages/Event";
 import { Join } from "./pages/Join";
 import CreateResult from "./pages/CreateResult";
 import { DateDecision } from "./pages/DateDecision";
+import { PastEvents } from "./pages/PastEvents";
 import history from "./history";
 import axios from "axios";
 
@@ -44,6 +45,7 @@ const App: React.FC = () => {
         <Route path='/join/:event' component={Join} />
         <Route path='/check/:event' component={CreateResult} />
         <Route path='/decision/:event' component={DateDecision} />
+        <Route path='/past_events' component={PastEvents} />
       </Router>
       </EventContext.Provider>
     </React.Fragment>

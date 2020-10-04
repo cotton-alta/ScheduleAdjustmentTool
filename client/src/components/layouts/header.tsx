@@ -13,7 +13,7 @@ const App: React.FC = () => {
         <Link className="header-tab--medium" to="/edit">新規作成</Link>
       </div>
       <div className="header-tab">
-        <Link className="header-tab--medium" to="/">過去の予定</Link>
+        <Link className="header-tab--medium" to="/past_events">過去の予定</Link>
       </div>
     </div>
   );

@@ -28,6 +28,9 @@ const getEvent = (req: express.Request, res: express.Response) => {
   .then((result: any) => {
     res.send(result);
   })
+  .catch((err: any) => {
+    res.send("No data");
+  });
 };
 
 const createEvent = (req: express.Request, res: express.Response) => {

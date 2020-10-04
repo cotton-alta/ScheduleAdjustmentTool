@@ -3,26 +3,48 @@ import axios from "axios";
 
 import "../assets/style/past.scss";
 
+interface Event {
+  title: string
+  description: string
+  startDate: string
+  endDate: string
+  password: string
+  check: string
+  user: Array<User>
+  decisionDate: {
+    judge: boolean
+    dete: string
+  }
+}
+
+interface User {}
+
 const PastEvents: React.FC = () => {
+  let [event_array, set_event_array] = useState<Event[]>([]);
   useEffect(() => {
-    getEvents();
-  }, []);
-
-  const getEvents = () => {
-    let event_array = [];
-
-    Object.keys(localStorage).forEach((key) => {
-      if(key.match(/event*/)) {
+    let res_array: Event[] = [];
+      // if(key.match(/event*/)) {
+    Object.keys(localStorage).forEach((key, index) => {
         axios.get(`/api/v1/events/${key}`)
         .then(res => {
-          event_array.push(res.data);
+          if(res.data !== "No data") {
+            const event_data: Event = res.data;
+            res_array.push(event_data);
+          }
+          if(index === Object.keys(localStorage).length - 1) {
+            set_event_array(res_array);
+          }
         });
-      }
+      // }
     });
-  };
-
+  }, []);
   return (
     <div className="past-container">
+      { 
+        event_array.map((event) => {
+          return (<p>{ event.title }</p>)
+        }) 
+      }
     </div>
   )
 };
