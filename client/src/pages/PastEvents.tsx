@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from "react";
 import axios from "axios";
+import { EventCard } from "../components/ui/EventCard";
 
 import "../assets/style/past.scss";
 
@@ -42,7 +43,7 @@ const PastEvents: React.FC = () => {
     <div className="past-container">
       { 
         event_array.map((event) => {
-          return (<p>{ event.title }</p>)
+          return (<EventCard data={event} />)
         }) 
       }
     </div>
