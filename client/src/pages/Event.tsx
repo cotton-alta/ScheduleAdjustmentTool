@@ -4,12 +4,14 @@ import axios from "axios";
 import { EventContext } from "../App";
 import { DateList } from "../components/ui/DateList";
 import { ListRender } from "../components/ui/ListRender";
+import bcrypt from "bcrypt";
 
 import "../assets/style/event.scss";
 import "../assets/style/table.scss";
 
 interface AuthResponse {
-  auth: boolean
+  auth: boolean,
+  password: string
 }
 
 interface Event {
@@ -63,18 +65,18 @@ const Event: React.FC = () => {
       }
     }
   }, []);
-  
+
   const changePassword = (e: React.ChangeEvent<HTMLInputElement>) => {
     setPassword(e.target.value);
   };
-  
+
   const postPassword = () => {
     axios.post<AuthResponse>(`/api/v1/check/${event}`,
       { password: password }
     )
     .then(res => {
       setAuthenticated(res.data.auth);
-      localStorage.setItem(event, password);
+      localStorage.setItem(event, res.data.password);
     });
   };
 
@@ -85,14 +87,14 @@ const Event: React.FC = () => {
           イベントパスワード
         </div>
         <div className="event-auth-form">
-          <input 
+          <input
             type="text"
-            onChange={changePassword} 
+            onChange={changePassword}
           />
         </div>
-        <div 
+        <div
           className="event-button"
-          onClick={postPassword}  
+          onClick={postPassword}
         >
           送信
         </div>
