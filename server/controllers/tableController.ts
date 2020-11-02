@@ -10,6 +10,17 @@ const checkPassword = (req: express.Request, res: express.Response) => {
   });
 };
 
+const checkHashedPassword = (req: express.Request, res: express.Response) => {
+  Event.findById(req.params.event)
+  .then((result: any) => {
+    if(req.body.password === result.password) {
+      res.send({ auth: true, password: "" });
+    } else {
+      res.send({ auth: false, password: "" });
+    }
+  });
+};
+
 const checkHostPassword = (req: express.Request, res: express.Response) => {
   console.log(req.params.event);
   console.log(req.body);
@@ -21,7 +32,6 @@ const checkHostPassword = (req: express.Request, res: express.Response) => {
 };
 
 const getEvent = (req: express.Request, res: express.Response) => {
-  console.log(req.params.event);
   Event.findById(req.params.event)
   .then((result: any) => {
     res.send(result);
@@ -32,7 +42,6 @@ const getEvent = (req: express.Request, res: express.Response) => {
 };
 
 const createEvent = (req: express.Request, res: express.Response) => {
-  console.log(req.body);
   let newEvent = new Event({
     title:        req.body.title,
     description:  req.body.description,
@@ -56,8 +65,6 @@ const createEvent = (req: express.Request, res: express.Response) => {
 };
 
 const joinEvent = (req: express.Request, res: express.Response) => {
-  console.log(req.params.event);
-  console.log(req.body);
   Event.findOneAndUpdate(
     { _id: req.params.event },
     { user: req.body }
@@ -72,7 +79,7 @@ const decisionEvent = (req: express.Request, res: express.Response) => {
   console.log(req.body)
   Event.findOneAndUpdate(
     { _id: req.params.event },
-    { $set: { 
+    { $set: {
       decisionDate: {
         judge: true,
         date: req.body.date
@@ -87,6 +94,7 @@ const decisionEvent = (req: express.Request, res: express.Response) => {
 
 export {
   checkPassword,
+  checkHashedPassword,
   checkHostPassword,
   getEvent,
   createEvent,

@@ -57,13 +57,19 @@ const Event: React.FC = () => {
       });
     });
 
-    if(!!localStorage.getItem(event)) {
-      const localPassword = localStorage.getItem(event);
-      if(typeof(localPassword) === "string") {
+    if(!localStorage.getItem(event)) return;
+    const localPassword = localStorage.getItem(event);
+    if(typeof(localPassword) !== "string") return;
+    axios.post(`/api/v1/check_hash/${event}`,
+      { password: localPassword }
+    ).then(res => {
+      if(res.data.auth) {
         setPassword(localPassword);
         setAuthenticated(true);
+      } else {
+        setAuthenticated(false);
       }
-    }
+    });
   }, []);
 
   const changePassword = (e: React.ChangeEvent<HTMLInputElement>) => {
