@@ -24,7 +24,6 @@ const PastEvents: React.FC = () => {
   let [event_array, set_event_array] = useState<Event[]>([]);
   useEffect(() => {
     let res_array: Event[] = [];
-      // if(key.match(/event*/)) {
     Object.keys(localStorage).forEach((key, index) => {
         axios.get(`/api/v1/events/${key}`)
         .then(res => {
@@ -36,15 +35,14 @@ const PastEvents: React.FC = () => {
             set_event_array(res_array);
           }
         });
-      // }
     });
   }, []);
   return (
     <div className="past-container">
-      { 
+      {
         event_array.map((event) => {
           return (<EventCard data={event} />)
-        }) 
+        })
       }
     </div>
   )
