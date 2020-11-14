@@ -20,6 +20,17 @@ interface Event {
 
 interface User {}
 
+const compare = (a: Event, b: Event) => {
+  const a_date = new Date(a.startDate);
+  const b_date = new Date(b.startDate);
+
+  if(a_date > b_date) {
+    return -1;
+  } else {
+    return 1;
+  }
+};
+
 const PastEvents: React.FC = () => {
   let [event_array, set_event_array] = useState<Event[]>([]);
   useEffect(() => {
@@ -32,6 +43,7 @@ const PastEvents: React.FC = () => {
             res_array.push(event_data);
           }
           if(index === Object.keys(localStorage).length - 1) {
+            res_array.sort(compare);
             set_event_array(res_array);
           }
         });
