@@ -53,7 +53,7 @@ const Event: React.FC = () => {
       dispatch({
         type: "checkEvent",
         payload: {
-          title:       data.title,
+          title:       htmlSpecialChars(data.title),
           description: htmlSpecialChars(data.description),
           startDate:   data.startDate,
           endDate:     data.endDate,

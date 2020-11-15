@@ -51,6 +51,7 @@ const PastEvents: React.FC = () => {
           if(res.data !== "No data") {
             const event_data: Event = res.data;
             event_data.description = htmlSpecialChars(event_data.description);
+            event_data.title = htmlSpecialChars(event_data.title);
             res_array.push(event_data);
           }
           if(index === Object.keys(localStorage).length - 1) {
