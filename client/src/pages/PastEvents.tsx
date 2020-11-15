@@ -20,6 +20,16 @@ interface Event {
 
 interface User {}
 
+const htmlSpecialChars = (str: string) => {
+  const modified_str = str.replace(/&/g, '&amp;')
+    .replace(/</g, '&lt;')
+    .replace(/>/g, '&gt;')
+    .replace(/"/g, '&quot;')
+    .replace(/'/g, '&#39;')
+    .replace(/\r?\n/g, '<br />')
+  return modified_str;
+};
+
 const compare = (a: Event, b: Event) => {
   const a_date = new Date(a.startDate);
   const b_date = new Date(b.startDate);
@@ -40,6 +50,7 @@ const PastEvents: React.FC = () => {
         .then(res => {
           if(res.data !== "No data") {
             const event_data: Event = res.data;
+            event_data.description = htmlSpecialChars(event_data.description);
             res_array.push(event_data);
           }
           if(index === Object.keys(localStorage).length - 1) {

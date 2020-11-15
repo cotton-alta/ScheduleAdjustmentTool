@@ -57,6 +57,7 @@ const EditComponent: React.FC = () => {
   };
 
   const changeDescription = (e: React.ChangeEvent<HTMLTextAreaElement>) => {
+    console.log(e.target.value);
     dispatch({
       type: "checkEvent",
       payload: {
@@ -66,7 +67,7 @@ const EditComponent: React.FC = () => {
   };
 
   const postData = () => {
-    let inputData = {
+    const inputData = {
       title:       stateEdit.title,
       description: stateEdit.description,
       startDate:   startDate,

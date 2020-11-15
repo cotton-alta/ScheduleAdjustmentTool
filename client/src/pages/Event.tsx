@@ -30,6 +30,16 @@ interface Event {
 
 interface User {}
 
+const htmlSpecialChars = (str: string) => {
+  const modified_str = str.replace(/&/g, '&amp;')
+    .replace(/</g, '&lt;')
+    .replace(/>/g, '&gt;')
+    .replace(/"/g, '&quot;')
+    .replace(/'/g, '&#39;')
+    .replace(/\r?\n/g, '<br />')
+  return modified_str;
+};
+
 const Event: React.FC = () => {
   const { stateEdit, dispatch } = useContext(EventContext);
   const [ password, setPassword ] = useState("");
@@ -44,7 +54,7 @@ const Event: React.FC = () => {
         type: "checkEvent",
         payload: {
           title:       data.title,
-          description: data.description,
+          description: htmlSpecialChars(data.description),
           startDate:   data.startDate,
           endDate:     data.endDate,
           password:    data.password,
@@ -128,7 +138,11 @@ const Event: React.FC = () => {
           説明
         </div>
         <div className="event-description--content">
-          {stateEdit.description}
+          {
+            stateEdit.description.split("<br />").map((row: string) => {
+              return (<p>{row}</p>);
+            })
+          }
         </div>
         <table className="table-wrapper">
           <tbody>
